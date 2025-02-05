@@ -1,6 +1,64 @@
 <script lang="ts">
   import "./app.css";
-  import Main from "./lib/main.svelte";
-</script>
+  import Main from "./lib/Main.svelte";
+  import {Drawer, Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, Button} from "flowbite-svelte";
+  import { ChartPieSolid, ArrowRightToBracketOutline } from "flowbite-svelte-icons";
 
-<Main/>
+  let drawerDisabled: boolean = true;
+  let drawerAlways: boolean = false;
+
+  $: if(drawerAlways) {
+    drawerDisabled = false;
+  }
+
+  function switchDrawer(state: boolean) {
+    if(!drawerAlways) {
+      drawerDisabled = state;
+    }
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'q') { //!TODO Make configurable and global
+      if (drawerAlways) {
+        drawerAlways = false;
+        drawerDisabled = true;
+      } else {
+        drawerAlways = true;
+        drawerDisabled = false;
+      }
+    }
+  }
+
+  window.addEventListener('keydown', handleKeydown);
+
+  // Cleanup event listener on component destroy
+  import { onDestroy } from 'svelte';
+  onDestroy(() => {
+    window.removeEventListener('keydown', handleKeydown);
+  });
+
+  // import Sidebar from "./lib/Sidebar.svelte";
+</script>
+<div class="w-1/32 h-full fixed left-0 top-0" on:mouseenter={() => switchDrawer(false)} role="button"></div>
+
+<div class="w-screen h-screen flex flex-row items-center justify-center">
+  <Drawer activateClickOutside={false} backdrop={false} transitionType="fly" transitionParams={{ x: -320, duration: 500 }} bind:hidden={drawerDisabled} onmouseleave={() => switchDrawer(true)}>
+    <div class="text-xl text-accent">Issues (me fr)</div>
+    <Sidebar>
+      <SidebarWrapper>
+        <SidebarGroup>
+          <SidebarItem label="Project 1"></SidebarItem>
+          <SidebarItem label="Project 2"></SidebarItem>
+          <SidebarItem label="Project 3"></SidebarItem>
+          <SidebarItem label="Project 4"></SidebarItem>
+          <SidebarItem label="Project 5"></SidebarItem>
+          <SidebarItem label="Project 6"></SidebarItem>
+          <SidebarItem label="Project 7"></SidebarItem>
+          <SidebarItem label="Project 8"></SidebarItem>
+          <SidebarItem label="Project 9"></SidebarItem>
+        </SidebarGroup>
+      </SidebarWrapper>
+    </Sidebar>
+  </Drawer>
+  <Main/>
+</div>
