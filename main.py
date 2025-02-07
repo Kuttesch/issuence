@@ -4,11 +4,11 @@ This module creates a webview window with a specified API.
 
 import webview
 import logging
-import inifile
+import configparser
 from backend.api import API
 from backend.log import Log
 
-logging.getLogger("webview")
+logger = logging.getLogger("api")
 
 def main():
     """This function creates a webview window with a specified API."""
@@ -17,6 +17,10 @@ def main():
     log.configure_logging(ini_data)
 
     api = API()
+    if api.test() == 0:
+        logger.info("API test passed.")
+    else:
+        logger.error("API test failed.")
     window = webview.create_window(
         "Window",
         "http://localhost:5173",
@@ -26,10 +30,10 @@ def main():
     webview.start(debug=True)
 
 def get_ini_data(path: str) -> dict:
-    """This function reads the ini data from a file."""
-    ini = inifile.IniFile("config.ini")
-    ini.read(path)
-    return ini.to_dict()
+    """This function reads the INI data from a file."""
+    config = configparser.ConfigParser()
+    config.read(path)
+    return {section: dict(config[section]) for section in config.sections()}
 
 
 if __name__ == "__main__":
