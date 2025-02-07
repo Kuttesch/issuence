@@ -2,65 +2,83 @@
   import "./app.css";
   import Main from "./lib/Main.svelte";
   import Drawer from "./lib/Drawer.svelte";
-  import {Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, Button} from "flowbite-svelte";
-  import { ChartPieSolid, ArrowRightToBracketOutline } from "flowbite-svelte-icons";
+  import { onDestroy, onMount } from 'svelte';
+  import { Spinner } from "flowbite-svelte";
+  import DrawerItem from "./lib/DrawerItem.svelte";
 
   let drawerDisabled: boolean = true;
   let drawerAlways: boolean = false;
+  let apiFlag: boolean = false;
+  let itemFlag: boolean = false;
+  let issuesLoaded: boolean = false;
+  let issueNames: string[] = [];
 
-  $: if(drawerAlways) {
+  async function getNumberOfIssues() {
+    if (window.pywebview && window.pywebview.api) {
+      try {
+        const response = await window.pywebview.api.init_program();
+        issueNames = response;
+        issuesLoaded = true;
+      } catch (error) {
+        console.error('Error fetching number of issues:', error);
+      }
+    } else {
+      console.error('pywebview API is not available');
+    }
+  }
+
+  $: if (drawerAlways) {
     drawerDisabled = false;
   }
 
   function switchDrawer(state: boolean) {
-    if(!drawerAlways) {
+    if (!drawerAlways) {
       drawerDisabled = state;
     }
   }
 
   function handleKeydown(event: KeyboardEvent) {
-    if (event.ctrlKey && event.key === 'q') { //!TODO Make configurable and global
-      if (drawerAlways) {
-        drawerAlways = false;
-        drawerDisabled = true;
-      } else {
-        drawerAlways = true;
-        drawerDisabled = false;
-      }
+    if (event.ctrlKey && event.key === 'q') {
+      drawerAlways = !drawerAlways;
+      drawerDisabled = !drawerAlways;
     }
   }
 
-  window.addEventListener('keydown', handleKeydown);
+  onMount(() => {
+    window.addEventListener('keydown', handleKeydown);
+  });
 
-  import { onDestroy } from 'svelte';
   onDestroy(() => {
     window.removeEventListener('keydown', handleKeydown);
   });
 
+  window.addEventListener('pywebviewready', function() {
+    apiFlag = true;
+    getNumberOfIssues();
+    itemFlag = true;
+  });
 </script>
 
+{#if apiFlag}
+  <!-- Invisible div to trigger drawer on mouse enter -->
+  <div class="w-1/32 h-full fixed left-0 top-0" on:mouseenter={() => switchDrawer(false)} role="button" tabindex={0}></div>
 
-<div class="w-1/32 h-full fixed left-0 top-0" on:mouseenter={() => switchDrawer(false)} role="button"></div>
+  <div class="w-screen h-screen flex flex-row items-center justify-center">
+    <Drawer hidden={drawerDisabled} on:onmouseleave={() => switchDrawer(true)}>
+            {#if issuesLoaded}
+              {#each issueNames as name, index}
+                <DrawerItem name={name}/>
+              {/each}
+            {/if}
 
-<div class="w-screen h-screen flex flex-row items-center justify-center">
-  <!-- <div class="w-1/4 h-full ease-in-out" on:mouseleave={() => switchDrawer(true)} role="button" hidden={drawerDisabled}> -->
-   <Drawer hidden={drawerDisabled} on:onmouseleave()={() => switchDrawer(true)}>
-    <div class="text-xl text-accent">Issues (me fr)</div>
-    <Sidebar>
-      <SidebarWrapper>
-        <SidebarGroup>
-          <SidebarItem label="Project 1"></SidebarItem>
-          <SidebarItem label="Project 2"></SidebarItem>
-          <SidebarItem label="Project 3"></SidebarItem>
-          <SidebarItem label="Project 4"></SidebarItem>
-          <SidebarItem label="Project 5"></SidebarItem>
-          <SidebarItem label="Project 6"></SidebarItem>
-          <SidebarItem label="Project 7"></SidebarItem>
-          <SidebarItem label="Project 8"></SidebarItem>
-          <SidebarItem label="Project 9"></SidebarItem>
-        </SidebarGroup>
-      </SidebarWrapper>
-    </Sidebar>
-   </Drawer>
-  <Main/>
-</div>
+    </Drawer>
+
+     <div class="w-full h-full flex items-center justify-center">
+       <Main />
+     </div>
+  </div>
+{:else}
+  <div class="w-screen h-screen flex items-center justify-center">
+    <Spinner />
+  </div>
+{/if}
