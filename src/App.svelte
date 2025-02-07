@@ -1,7 +1,8 @@
 <script lang="ts">
   import "./app.css";
   import Main from "./lib/Main.svelte";
-  import {Drawer, Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, Button} from "flowbite-svelte";
+  import Drawer from "./lib/Drawer.svelte";
+  import {Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, Button} from "flowbite-svelte";
   import { ChartPieSolid, ArrowRightToBracketOutline } from "flowbite-svelte-icons";
 
   let drawerDisabled: boolean = true;
@@ -31,18 +32,19 @@
 
   window.addEventListener('keydown', handleKeydown);
 
-  // Cleanup event listener on component destroy
   import { onDestroy } from 'svelte';
   onDestroy(() => {
     window.removeEventListener('keydown', handleKeydown);
   });
 
-  // import Sidebar from "./lib/Sidebar.svelte";
 </script>
+
+
 <div class="w-1/32 h-full fixed left-0 top-0" on:mouseenter={() => switchDrawer(false)} role="button"></div>
 
 <div class="w-screen h-screen flex flex-row items-center justify-center">
-  <Drawer activateClickOutside={false} backdrop={false} transitionType="fly" transitionParams={{ x: -320, duration: 500 }} bind:hidden={drawerDisabled} onmouseleave={() => switchDrawer(true)}>
+  <!-- <div class="w-1/4 h-full ease-in-out" on:mouseleave={() => switchDrawer(true)} role="button" hidden={drawerDisabled}> -->
+   <Drawer hidden={drawerDisabled} on:onmouseleave()={() => switchDrawer(true)}>
     <div class="text-xl text-accent">Issues (me fr)</div>
     <Sidebar>
       <SidebarWrapper>
@@ -59,6 +61,6 @@
         </SidebarGroup>
       </SidebarWrapper>
     </Sidebar>
-  </Drawer>
+   </Drawer>
   <Main/>
 </div>
