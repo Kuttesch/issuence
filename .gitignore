@@ -26,3 +26,7 @@ dist-ssr
 
 # python
 .venv
+.pytest_cache
+__pycache__
+backend/__pycache__
+tests/__pycache__
