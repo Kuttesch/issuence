@@ -1,3 +1,4 @@
+import webview
 from typing import Optional, List, Union
 from tinydb import TinyDB, Query
 from tinydb.database import Document
@@ -11,21 +12,20 @@ class Database:
         """Initializes the database."""
         self.database_path = database_path
         self.db = TinyDB(database_path)  # Initialize TinyDB
-        if not self.db.tables():  # Check if the database is empty
-            self.issues_table = self.db.table("issues")  # Create a table for issues
-            self.comments_table = self.db.table("comments")  # Create a table for comments
+        self.issues_table = self.db.table("issues")  # Create a table for issues
+        self.comments_table = self.db.table("comments")  # Create a table for comments
+        self.IssueQuery = Query()  # Define IssueQuery
 
-    def dict_to_db(self, data: dict):
+    def create_issue(self, data: dict):
         """Inserts a dictionary into the database."""
         self.issues_table.insert(data)
 
-    def get_issue(self, issue_id: int) -> Optional[dict]:
-        """Returns a dictionary from the database by issue ID."""
-        IssueQuery = Query()
-        result = self.issues_table.get(IssueQuery.id == issue_id)
-        if result:
-            return dict(result)  # Convert Document to dict
-        return None
+    def get_issue(self, issue_id):
+        """Returns an issue from the database."""
+        result = self.issues_table.get(self.IssueQuery.id == issue_id)
+        if result is None:
+            return {"error": "Issue not found"}
+        return result
 
     def get_all_issues(self) -> List[dict]:
         """Returns all issues from the database."""
@@ -52,6 +52,8 @@ class Database:
         """Deletes an issue from the database."""
         self.issues_table.remove(doc_ids=[issue_id])
 
-    def get_all_indexes(self) -> List[Document]:
-        """Returns all documents (indexes) from the issues table."""
-        return self.issues_table.all()
+    def get_issue_count(self) -> int:
+        """Returns the number of issues in the database."""
+        if self.issues_table:
+            return len(self.issues_table)
+        return 0
