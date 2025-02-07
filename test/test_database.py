@@ -26,7 +26,7 @@ class TestDatabase:
         """Test inserting an issue and retrieving it by ID."""
         # Create an issue
         issue = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
-        test_db.dict_to_db(asdict(issue))
+        test_db.create_issue(asdict(issue))
 
         # Retrieve the issue
         retrieved_issue = test_db.get_issue(1)
@@ -43,7 +43,7 @@ class TestDatabase:
     def test_get_issue(self, test_db):
         """Test retrieving an issue by ID."""
         issue = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
-        test_db.dict_to_db(asdict(issue))
+        test_db.create_issue(asdict(issue))
 
         retrieved_issue = test_db.get_issue(1)
         assert retrieved_issue is not None
@@ -55,8 +55,8 @@ class TestDatabase:
         # Insert multiple issues
         issue1 = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
         issue2 = Issue(id=2, title="Feature request: Dark mode", description="Users want a dark mode option.")
-        test_db.dict_to_db(asdict(issue1))
-        test_db.dict_to_db(asdict(issue2))
+        test_db.create_issue(asdict(issue1))
+        test_db.create_issue(asdict(issue2))
 
         # Retrieve all issues
         all_issues = test_db.get_all_issues()
@@ -69,7 +69,7 @@ class TestDatabase:
         # Create an issue and a comment
         issue = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
         comment = Comment(title="Urgent", description="This is a critical issue.")
-        test_db.dict_to_db(asdict(issue))
+        test_db.create_issue(asdict(issue))
         test_db.add_comment(issue.id, comment)
 
         # Retrieve comments for the issue
@@ -83,7 +83,7 @@ class TestDatabase:
         """Test updating an issue in the database."""
         # Create an issue
         issue = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
-        test_db.dict_to_db(asdict(issue))
+        test_db.create_issue(asdict(issue))
 
         # Update the issue
         updated_issue = Issue(id=1, title="Bug in login page", description="Users cannot log in. Fixed!")
@@ -98,7 +98,7 @@ class TestDatabase:
         """Test deleting an issue from the database."""
         # Create an issue
         issue = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
-        test_db.dict_to_db(asdict(issue))
+        test_db.create_issue(asdict(issue))
 
         # Delete the issue
         test_db.delete_issue(1)
@@ -111,8 +111,8 @@ class TestDatabase:
         """Test retrieving all indexes from the database."""
         issue1 = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
         issue2 = Issue(id=2, title="Feature request: Dark mode", description="Users want a dark mode option.")
-        test_db.dict_to_db(asdict(issue1))
-        test_db.dict_to_db(asdict(issue2))
+        test_db.create_issue(asdict(issue1))
+        test_db.create_issue(asdict(issue2))
 
         indexes = test_db.get_all_indexes()
         assert len(indexes) == 2
