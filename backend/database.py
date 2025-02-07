@@ -11,8 +11,9 @@ class Database:
         """Initializes the database."""
         self.database_path = database_path
         self.db = TinyDB(database_path)  # Initialize TinyDB
-        self.issues_table = self.db.table("issues")  # Create a table for issues
-        self.comments_table = self.db.table("comments")  # Create a table for comments
+        if not self.db.tables():  # Check if the database is empty
+            self.issues_table = self.db.table("issues")  # Create a table for issues
+            self.comments_table = self.db.table("comments")  # Create a table for comments
 
     def dict_to_db(self, data: dict):
         """Inserts a dictionary into the database."""
