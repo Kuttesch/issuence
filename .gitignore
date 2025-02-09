@@ -23,10 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# frontend
+apps/frontend/node_modules
+apps/frontend/.vscode
 
-# python
-.venv
-.pytest_cache
-__pycache__
-backend/__pycache__
-tests/__pycache__
+# backend
+apps/backend/node_modules
+apps/backend/dist
