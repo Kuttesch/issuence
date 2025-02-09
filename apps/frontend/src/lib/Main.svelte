@@ -2,6 +2,10 @@
     import {P} from 'flowbite-svelte';
     import {issueStore} from './store.js';
 
+    export let currentIssueNumber = 0;
+
+
+
 </script>
 
 <div class="w-5/6 h-full flex flex-row items-center justify-center p-2">

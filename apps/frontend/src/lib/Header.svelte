@@ -3,6 +3,7 @@
     import { CloseOutline, ExpandOutline, MinimizeOutline, DotsHorizontalOutline, BarsOutline } from 'flowbite-svelte-icons';
 
     let maximized: boolean = false;
+    console.log(window.electron);
 
 
     function closeApp() {
