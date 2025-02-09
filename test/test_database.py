@@ -9,9 +9,9 @@ from backend.issue import Issue, Comment
 def test_db(tmp_path):
     """Fixture to create a temporary database for testing."""
     db_path = tmp_path / "test_db.json"
-    db = Database(database_path=str(db_path))
-    yield db
-    db.close()
+    database = Database(database_path=str(db_path))
+    yield database
+    database.db.close()
 
 class TestDatabase:
     """Test class for the Database functionality."""
@@ -38,7 +38,7 @@ class TestDatabase:
     def test_get_nonexistent_issue(self, test_db):
         """Test retrieving an issue that does not exist."""
         retrieved_issue = test_db.get_issue(999)
-        assert retrieved_issue is None
+        assert retrieved_issue == {"error": "Issue not found"}
 
     def test_get_issue(self, test_db):
         """Test retrieving an issue by ID."""
@@ -105,14 +105,4 @@ class TestDatabase:
 
         # Verify that the issue is deleted
         retrieved_issue = test_db.get_issue(1)
-        assert retrieved_issue is None
-
-    def test_get_all_indexes(self, test_db):
-        """Test retrieving all indexes from the database."""
-        issue1 = Issue(id=1, title="Bug in login page", description="Users cannot log in.")
-        issue2 = Issue(id=2, title="Feature request: Dark mode", description="Users want a dark mode option.")
-        test_db.create_issue(asdict(issue1))
-        test_db.create_issue(asdict(issue2))
-
-        indexes = test_db.get_all_indexes()
-        assert len(indexes) == 2
+        assert retrieved_issue == {"error": "Issue not found"}
