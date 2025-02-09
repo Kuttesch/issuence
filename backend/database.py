@@ -1,8 +1,8 @@
-import webview
-from typing import Optional, List, Union
-from tinydb import TinyDB, Query
-from tinydb.database import Document
+"""This module contains the Database class."""
+from typing import List
 from dataclasses import asdict
+from tinydb import TinyDB, Query
+import webview
 from backend.issue import Issue, Comment
 
 class Database:
@@ -14,15 +14,17 @@ class Database:
         self.db = TinyDB(database_path)  # Initialize TinyDB
         self.issues_table = self.db.table("issues")  # Create a table for issues
         self.comments_table = self.db.table("comments")  # Create a table for comments
-        self.IssueQuery = Query()  # Define IssueQuery
+        self.issue_query = Query()  # Define IssueQuery
 
-    def create_issue(self, data: dict):
+    def create_issue(self, data: dict | Issue):
         """Inserts a dictionary into the database."""
+        if isinstance(data, Issue):
+            data = asdict(data)
         self.issues_table.insert(data)
 
     def get_issue(self, issue_id):
         """Returns an issue from the database."""
-        result = self.issues_table.get(self.IssueQuery.id == issue_id)
+        result = self.issues_table.get(self.issue_query.id == issue_id)
         if result is None:
             return {"error": "Issue not found"}
         return result
@@ -40,8 +42,8 @@ class Database:
 
     def get_comments_for_issue(self, issue_id: int) -> List[dict]:
         """Returns all comments for a specific issue."""
-        CommentQuery = Query()
-        results = self.comments_table.search(CommentQuery.issue_id == issue_id)
+        comment_query = Query()
+        results = self.comments_table.search(comment_query.issue_id == issue_id)
         return [dict(result) for result in results]  # Convert Documents to dicts
 
     def update_issue(self, issue_id: int, issue: Issue):
