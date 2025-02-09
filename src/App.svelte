@@ -2,6 +2,7 @@
   import "./app.css";
   import Main from "./lib/Main.svelte";
   import Drawer from "./lib/Drawer.svelte";
+  import Header from "./lib/Header.svelte";
   import { onDestroy, onMount } from 'svelte';
   import { Spinner } from "flowbite-svelte";
   import DrawerItem from "./lib/DrawerItem.svelte";
@@ -57,10 +58,12 @@
     getNumberOfIssues();
     itemFlag = true;
   });
-</script>
 
-{#if apiFlag}
-  <!-- Invisible div to trigger drawer on mouse enter -->
+</script>
+<!-- {#if apiFlag} -->
+  <!-- Currently not needed -->
+  <Header />
+
   <div class="w-1/32 h-full fixed left-0 top-0" on:mouseenter={() => switchDrawer(false)} role="button" tabindex={0}></div>
 
   <div class="w-screen h-screen flex flex-row items-center justify-center">
@@ -73,12 +76,12 @@
 
     </Drawer>
 
-     <div class="w-full h-full flex items-center justify-center">
+     <div class="w-full h-full flex items-center justify-center pt-10">
        <Main />
      </div>
   </div>
-{:else}
-  <div class="w-screen h-screen flex items-center justify-center">
+<!-- {:else} -->
+  <!-- <div class="w-screen h-screen flex items-center justify-center">
     <Spinner />
   </div>
-{/if}
+{/if} -->
