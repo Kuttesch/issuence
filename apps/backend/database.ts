@@ -1,23 +1,20 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { Issue } from "./data";
 import { Low as LowDB } from "lowdb";
-import  { FileSync } from "lowdb/adapters/FileSync";
+import { JSONFile} from "lowdb/node";
 
 
 export default class DB {
     private db: LowDB<any>;
-    private adapter: FileSync;
+    private adapter: JSONFile<any>;
 
     constructor(file: string = "database.json") {
-        this.adapter = new FileSync(file);
+        this.adapter = new JSONFile(file);
         this.db = new LowDB(this.adapter, {});
-        this.read();
-        if (!this.db.data) {
-            this.db.data = {};
-        }
+        this.db.data = { issues: [] };
     }
 
-    private async read() {
+    private async readDB() {
         await this.db.read();
     }
 

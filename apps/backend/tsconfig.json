@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
       "outDir": "dist",
-      "module": "NodeNext",
-      "moduleResolution": "NodeNext",
+      "module": "ESNext",
+      "moduleResolution": "node",
       "target": "ESNext",
       "strict": true,
       "allowImportingTsExtensions": true,
       "noEmit": true,
-      "composite": true
+      "composite": true,
+      "esModuleInterop": true
     }
   }
   
