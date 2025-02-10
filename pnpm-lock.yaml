@@ -10,9 +10,15 @@ importers:
 
   apps/backend:
     dependencies:
+      '@types/lokijs':
+        specifier: ^1.5.14
+        version: 1.5.14
       '@types/lowdb':
         specifier: ^1.0.15
         version: 1.0.15
+      lokijs:
+        specifier: ^1.5.12
+        version: 1.5.12
     devDependencies:
       '@types/jest':
         specifier: ^29.5.14
@@ -23,9 +29,6 @@ importers:
       electron:
         specifier: ^34.1.1
         version: 34.1.1
-      lowdb:
-        specifier: ^7.0.1
-        version: 7.0.1
       pnpm-run:
         specifier: 0.0.1-security
         version: 0.0.1-security
@@ -549,6 +552,9 @@ packages:
   '@types/lodash@4.17.15':
     resolution: {integrity: sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw==}
 
+  '@types/lokijs@1.5.14':
+    resolution: {integrity: sha512-4Fic47BX3Qxr8pd12KT6/T1XWU8dOlJBIp1jGoMbaDbiEvdv50rAii+B3z1b/J2pvMywcVP+DBPGP5/lgLOKGA==}
+
   '@types/lowdb@1.0.15':
     resolution: {integrity: sha512-xaMNIveDCryK4UvnUJOc2BCOH0lPivdvWHrutsLryo9r9Id3RqZq2RDmT4eddiEPYzu7nJMw6nFIcVifcqjWqg==}
 
@@ -980,9 +986,8 @@ packages:
   locate-character@3.0.0:
     resolution: {integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==}
 
-  lowdb@7.0.1:
-    resolution: {integrity: sha512-neJAj8GwF0e8EpycYIDFqEPcx9Qz4GUho20jWFR7YiFeXzF1YMLdxB36PypcTSPMA+4+LvgyMacYhlr18Zlymw==}
-    engines: {node: '>=18'}
+  lokijs@1.5.12:
+    resolution: {integrity: sha512-Q5ALD6JiS6xAUWCwX3taQmgwxyveCtIIuL08+ml0nHwT3k0S/GIFJN+Hd38b1qYIMaE5X++iqsqWVksz7SYW+Q==}
 
   lowercase-keys@2.0.0:
     resolution: {integrity: sha512-tqNXrS78oMOE73NMxK4EMLQsQowWf8jKooH9g7xPavRT706R6bkQJ6DY2Te7QukaZsulxa30wQ7bk0pm4XiHmA==}
@@ -1141,10 +1146,6 @@ packages:
   stack-utils@2.0.6:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
     engines: {node: '>=10'}
-
-  steno@4.0.2:
-    resolution: {integrity: sha512-yhPIQXjrlt1xv7dyPQg2P17URmXbuM5pdGkpiMB3RenprfiBlvK415Lctfe0eshk90oA7/tNq7WEiMK8RSP39A==}
-    engines: {node: '>=18'}
 
   sumchecker@3.0.1:
     resolution: {integrity: sha512-MvjXzkz/BOfyVDkG0oFOtBxHX2u3gKbMHIF/dXblZsgD3BWOFLmHovIpZY7BykJdAjcqRCBi1WYBNdEC9yI7vg==}
@@ -1680,6 +1681,8 @@ snapshots:
 
   '@types/lodash@4.17.15': {}
 
+  '@types/lokijs@1.5.14': {}
+
   '@types/lowdb@1.0.15':
     dependencies:
       '@types/lodash': 4.17.15
@@ -2148,9 +2151,7 @@ snapshots:
 
   locate-character@3.0.0: {}
 
-  lowdb@7.0.1:
-    dependencies:
-      steno: 4.0.2
+  lokijs@1.5.12: {}
 
   lowercase-keys@2.0.0: {}
 
@@ -2304,8 +2305,6 @@ snapshots:
   stack-utils@2.0.6:
     dependencies:
       escape-string-regexp: 2.0.0
-
-  steno@4.0.2: {}
 
   sumchecker@3.0.1:
     dependencies:

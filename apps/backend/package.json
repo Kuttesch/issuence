@@ -15,12 +15,13 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.1",
     "electron": "^34.1.1",
-    "lowdb": "^7.0.1",
     "pnpm-run": "0.0.1-security",
     "ts-node": "^10.9.2",
     "typescript": "~5.7.3"
   },
   "dependencies": {
-    "@types/lowdb": "^1.0.15"
+    "@types/lokijs": "^1.5.14",
+    "@types/lowdb": "^1.0.15",
+    "lokijs": "^1.5.12"
   }
 }

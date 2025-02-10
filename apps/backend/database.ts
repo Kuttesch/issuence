@@ -1,59 +1,136 @@
-import { contextBridge, ipcRenderer } from "electron";
 import { Issue } from "./data";
-import { Low as LowDB } from "lowdb";
-import { JSONFile} from "lowdb/node";
+import loki from "lokijs";
 
+console.log("Hello from database.ts");
 
 export default class DB {
-    private db: LowDB<any>;
-    private adapter: JSONFile<any>;
+    private db: loki;
+    private issuesCollection: any;
 
     constructor(file: string = "database.json") {
-        this.adapter = new JSONFile(file);
-        this.db = new LowDB(this.adapter, {});
-        this.db.data = { issues: [] };
+        this.db = new loki(file, { persistenceMethod: 'fs' }); // Use file system for persistence
+        // this.issuesCollection = this.db.addCollection("issues"); // Create or access issues collection
     }
 
-    private async readDB() {
-        await this.db.read();
+    public async initDB() {
+        return new Promise<void>((resolve, reject) => {
+            this.db.loadDatabase({}, () => {
+                console.log("Database loaded");
+
+                this.issuesCollection = this.db.getCollection("issues");
+                if (!this.issuesCollection) {
+                    this.issuesCollection = this.db.addCollection("issues");
+                    this.createExampleData();
+                    console.log("Database initialized with example data");
+                }
+
+                this.db.saveDatabase(); // Save changes
+                resolve();
+            });
+        });
     }
 
     public async getIssue(id: number) {
-        return this.db.data.issues.find((issue: Issue) => issue.id === id);
+        const issue = this.issuesCollection.findOne({ id });
+        return issue;
     }
 
-    public getNumberOfIssues() {
-        return this.db.data.issues.length;
+    public async getNumberOfIssues() {
+        return this.issuesCollection.count();
     }
 
-    public getNameOfIssue(id: number) {
-        return this.db.data.issues.find((issue: Issue) => issue.id === id).title;
+    public async getNameOfIssue(id: number) {
+        const issue = this.issuesCollection.findOne({ id });
+        return issue?.title;
+    }
+
+    public async getIdOfIssue(name: string) {
+        const issue = this.issuesCollection.findOne({ title: name });
+        return issue?.id;
+    }
+
+    public async getListOfAllIssueNames() {
+        const issues = this.issuesCollection.find();
+        return issues.map((issue: Issue) => issue.title);
     }
 
     public async addIssue(issue: Issue) {
-        this.db.data.issues.push(issue);
-        await this.db.write();
+        // Lokidb automatically generates unique IDs unless you specify one
+        this.issuesCollection.insert(issue);
+        this.db.saveDatabase(); // Save to disk
     }
 
     public async saveIssue(issue: Issue) {
-        const index = this.db.data.issues.findIndex((i: Issue) => i.id === issue.id);
-        if (index === -1) {
-            this.db.data.issues.push(issue);
+        const existingIssue = this.issuesCollection.findOne({ id: issue.id });
+        if (existingIssue) {
+            this.issuesCollection.update(issue);
         } else {
-            this.db.data.issues[index] = issue;
+            this.issuesCollection.insert(issue);
         }
-        await this.db.write();
+        this.db.saveDatabase(); // Save to disk
     }
 
-    public removeIssue(id: number) {
-        this.db.data.issues = this.db.data.issues.filter((issue: Issue) => issue.id !== id);
-        this.db.data.issues.forEach((issue: Issue, index: number) => {
+    public async removeIssue(id: number) {
+        const issue = this.issuesCollection.findOne({ id });
+        if (issue) {
+            this.issuesCollection.remove(issue);
+        }
+
+        // Reassign IDs to maintain order
+        const allIssues = this.issuesCollection.find();
+        allIssues.forEach((issue: Issue, index: number) => {
             issue.id = index + 1;
+            this.issuesCollection.update(issue);
         });
-        this.db.write();
+
+        this.db.saveDatabase(); // Save to disk
     }
 
     public getNewIssueID() {
-        return this.db.data.issues.length + 1;
+        return this.issuesCollection.count() + 1;
+    }
+
+    public async createExampleData() {
+        const exampleData = [
+            {
+                id: 1,
+                title: "Example Issue",
+                description: "This is an example issue",
+                priority: "low",
+                status: "open",
+                tags: ["example", "issue"],
+                comments: [
+                    {
+                        id: 1,
+                        text: "This is a comment",
+                        created: new Date(),
+                    },
+                ],
+                created: new Date(),
+                updated: null,
+                closed: null,
+            },
+            {
+                id: 2,
+                title: "Another Example Issue",
+                description: "This is another example issue",
+                priority: "high",
+                status: "open",
+                tags: ["example", "issue"],
+                comments: [
+                    {
+                        id: 1,
+                        text: "This is a comment",
+                        created: new Date(),
+                    },
+                ],
+                created: new Date(),
+                updated: null,
+                closed: null,
+            }
+        ];
+
+        this.issuesCollection.insert(exampleData);
+        this.db.saveDatabase(); // Save to disk
     }
 }

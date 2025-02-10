@@ -1,4 +1,4 @@
-import DB from './database.ts';
+import DB from './database';
 
 enum Priority {
     LOW = 'LOW',
