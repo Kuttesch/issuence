@@ -39,6 +39,22 @@ class Comment {
     }
 }
 
+class TodoItem {
+    public id: number;
+    public text: string;
+    public done: boolean;
+
+    constructor() {
+        this.id = 0;
+        this.text = "";
+        this.done = false;
+    }
+
+    public setStatus(status: boolean) {
+        this.done = status;
+    }
+}
+
 
 class Issue {
 
@@ -50,6 +66,7 @@ class Issue {
     public status: Status;
     public tags: Tags[];
     public comments: Comment[];
+    public todoItems: TodoItem[];
     public created: Date;
     public updated: Date | null;
     public closed: Date | null;
@@ -63,6 +80,7 @@ class Issue {
         this.status = Status.OPEN;
         this.tags = [];
         this.comments = [];
+        this.todoItems = [];
         this.created = new Date();
         this.updated = null;
         this.closed = null;
@@ -77,6 +95,7 @@ class Issue {
         this.status = issue.status;
         this.tags = issue.tags;
         this.comments = issue.comments;
+        this.todoItems = issue.todoItems;
         this.created = issue.created;
         this.updated = issue.updated;
         this.closed = issue.closed;
@@ -126,6 +145,26 @@ class Issue {
     public getComment(id: number) {
         return this.comments.find(c => c.id === id);
     }
+
+    public addTodoItem(text: string) {
+        const todoItem = new TodoItem();
+        todoItem.id = this.todoItems.length;
+        todoItem.text = text;
+        this.todoItems.push(todoItem);
+    }
+
+    public removeTodoItem(id: number) {
+        this.todoItems = this.todoItems.filter(t => t.id !== id);
+        this.todoItems.forEach((todoItem, index) => {
+            todoItem.id = index;
+        });
+    }
+
+    public getTodoItem(id: number) {
+        return this.todoItems.find(t => t.id === id);
+    }
+
+    // ## Dates
 
     public update() {
         this.updated = new Date();
