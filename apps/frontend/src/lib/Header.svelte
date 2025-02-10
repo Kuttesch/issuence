@@ -8,18 +8,18 @@
 
     function closeApp() {
         console.log('Close App');
-        window.electron.quitApp();
+        window.electron.windowControls.quitApp();
     }
 
     async function maximizeApp() {
         console.log('Maximize App');
-        maximized =  await window.electron.maximizeWindow();
+        maximized =  await window.electron.windowControls.maximizeWindow();
         console.log(maximized);
     }
 
     function minimizeApp() {
         console.log('Minimize App');
-        window.electron.minimizeWindow();
+        window.electron.windowControls.minimizeWindow();
     }
 
 </script>
