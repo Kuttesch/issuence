@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "pnpm run build && pnpm run start",
+    "start": "electron .",
+    "build": "npx tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.1",
+    "electron": "^34.1.1",
+    "pnpm-run": "0.0.1-security",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.7.3"
+  },
+  "dependencies": {
+    "@types/lokijs": "^1.5.14",
+    "@types/lowdb": "^1.0.15",
+    "lokijs": "^1.5.12"
+  }
+}

@@ -63,11 +63,14 @@ h1 {
   -ms-overflow-style: none;
 }
 
-.draggable {
+
+.drag {
   -webkit-app-region: drag;
   -webkit-user-select: none;
-  background-color: aqua;
-  z-index: 9999;  /* Ensure it's above other elements */
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
 }
 
 
