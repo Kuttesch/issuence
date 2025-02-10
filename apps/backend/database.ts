@@ -9,54 +9,24 @@ export default class DB {
 
     constructor(file: string = "database.json") {
         this.db = new loki(file, { persistenceMethod: 'fs' }); // Use file system for persistence
-        this.issuesCollection = this.db.addCollection("issues"); // Create or access issues collection
+        // this.issuesCollection = this.db.addCollection("issues"); // Create or access issues collection
     }
 
     public async initDB() {
-        // Loki will automatically load the data when the database is initialized.
-        this.db.loadDatabase({}, () => {
-            // Ensure the issues collection exists and has data
-            if (!this.issuesCollection.count()) {
-                this.issuesCollection.insert([
-                    // Example initial data
-                    {
-                        id: 1,
-                        title: "Example Issue",
-                        description: "This is an example issue",
-                        priority: "low",
-                        status: "open",
-                        tags: ["example", "issue"],
-                        comments: [
-                            {
-                                id: 1,
-                                text: "This is a comment",
-                                created: new Date(),
-                            },
-                        ],
-                        created: new Date(),
-                        updated: null,
-                        closed: null,
-                    },
-                    {
-                        id: 2,
-                        title: "Another Example Issue",
-                        description: "This is another example issue",
-                        priority: "high",
-                        status: "open",
-                        tags: ["example", "issue"],
-                        comments: [
-                            {
-                                id: 1,
-                                text: "This is a comment",
-                                created: new Date(),
-                            },
-                        ],
-                        created: new Date(),
-                        updated: null,
-                        closed: null,
-                    }
-                ]);
-            }
+        return new Promise<void>((resolve, reject) => {
+            this.db.loadDatabase({}, () => {
+                console.log("Database loaded");
+
+                this.issuesCollection = this.db.getCollection("issues");
+                if (!this.issuesCollection) {
+                    this.issuesCollection = this.db.addCollection("issues");
+                    this.createExampleData();
+                    console.log("Database initialized with example data");
+                }
+
+                this.db.saveDatabase(); // Save changes
+                resolve();
+            });
         });
     }
 
@@ -72,6 +42,11 @@ export default class DB {
     public async getNameOfIssue(id: number) {
         const issue = this.issuesCollection.findOne({ id });
         return issue?.title;
+    }
+
+    public async getIdOfIssue(name: string) {
+        const issue = this.issuesCollection.findOne({ title: name });
+        return issue?.id;
     }
 
     public async getListOfAllIssueNames() {

@@ -25,7 +25,8 @@ function createWindow() {
 
 app.whenReady().then(async () => {
   db = new DB();
-  db.createExampleData();
+  await db.initDB();
+  // db.createExampleData();
   console.log("Database initialized");
   console.log(db.getListOfAllIssueNames());
   createWindow();
@@ -103,6 +104,13 @@ ipcMain.handle('getListOfAllIssueNames', async () => {
 ipcMain.handle('getNameOfIssue', async (event, id) => {
   if (db !== null) {
     return await db.getNameOfIssue(id);
+  }
+  console.error("Database not initialized");
+});
+
+ipcMain.handle('getIdOfIssue', async (event, name) => {
+  if (db !== null) {
+    return await db.getIdOfIssue(name);
   }
   console.error("Database not initialized");
 });
