@@ -13,7 +13,7 @@
   console.log(window.electron);
 
   async function loadIssues() {
-    issueNames = await window.electron.getListOfAllIssueNames();     
+    issueNames = await window.electron.database.getListOfAllIssueNames();     
   }
 
   $: if (!drawerDisabled) {
