@@ -29,6 +29,12 @@ declare global {
     updated?: Date;
   };
 
+  type TodoItem = {
+    id: number;
+    text: string;
+    done: boolean;
+  };
+
   type Issue = {
     id: number;
     title: string;
@@ -37,6 +43,7 @@ declare global {
     status: Status;
     tags: Tags[];
     comments: Comment[];
+    todoItems: TodoItem[];
     created: Date;
     updated: Date | null;
     closed: Date | null;

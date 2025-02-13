@@ -75,62 +75,134 @@ export default class DB {
     if (issue) {
       this.issuesCollection.remove(issue);
     }
+    public async createExampleData() {
+        this.db.removeCollection("issues");
+        const exampleData = [
+            {
+                id: 1,
+                title: "Example Issue",
+                description: "This is an example issue",
+                priority: "low",
+                status: "open",
+                tags: ["example", "issue"],
+                comments: [
+                    {
+                        id: 1,
+                        text: "This is a comment",
+                        created: new Date("2024-12-01T10:30:00Z"),
+                    },
+                ],
+                todoItems: [
+                    {
+                        id: 1,
+                        text: "This is a todo item",
+                        done: true,
+                    },
+                    {
+                        id: 2,
+                        text: "This is another todo item",
+                        done: false,
+                    },
+                ],
+                created: new Date("2024-12-01T09:00:00Z"),
+                updated: new Date("2024-12-02T15:45:00Z"),
+                closed: null,
+            },
+            {
+                id: 2,
+                title: "Another Example Issue",
+                description: "## This is another example issue",
+                priority: "high",
+                status: "current",
+                tags: ["example", "issue"],
+                comments: [
+                    {
+                        id: 1,
+                        text: "This is a comment",
+                        created: new Date("2024-12-05T14:20:00Z"),
+                    },
+                ],
+                todoItems: [
+                    {
+                        id: 1,
+                        text: "This is a todo item",
+                        done: true,
+                    },
+                    {
+                        id: 2,
+                        text: "This is another todo item",
+                        done: false,
+                    },
+                ],
+                created: new Date("2024-12-05T12:00:00Z"),
+                updated: null,
+                closed: null,
+            },
+            {
+                id: 3,
+                title: "Yet Another Example Issue",
+                description: "### This is yet another example issue",
+                priority: "medium",
+                status: "done",
+                tags: ["example", "issue"],
+                comments: [
+                    {
+                        id: 1,
+                        text: "This is a comment",
+                        created: new Date("2024-11-20T08:45:00Z"),
+                        updated: new Date("2024-11-21T10:00:00Z"),
+                    },
+                ],
+                todoItems: [
+                    {
+                        id: 1,
+                        text: "This is a todo item",
+                        done: false,
+                    },
+                    {
+                        id: 2,
+                        text: "This is another todo item",
+                        done: true,
+                    },
+                ],
+                created: new Date("2024-11-15T07:30:00Z"),
+                updated: new Date("2024-11-22T16:30:00Z"),
+                closed: new Date("2024-11-23T09:15:00Z"),
+            },
+            {
+                id: 4,
+                title: "One More Example Issue",
+                description: "This is one more example issue",
+                priority: "low",
+                status: "later",
+                tags: ["example", "issue"],
+                comments: [
+                    {
+                        id: 1,
+                        text: "This is a comment",
+                        created: new Date("2025-01-02T11:20:00Z"),
+                    },
+                ],
+                todoItems: [
+                    {
+                        id: 1,
+                        text: "This is a todo item",
+                        done: false,
+                    },
+                    {
+                        id: 2,
+                        text: "This is another todo item",
+                        done: false,
+                    },
+                ],
+                created: new Date("2025-01-01T10:00:00Z"),
+                updated: new Date("2025-02-10T14:50:00Z"),
+                closed: null,
+            }
+        ];
+        
 
-    // Reassign IDs to maintain order
-    const allIssues = this.issuesCollection.find();
-    allIssues.forEach((issue: Issue, index: number) => {
-      issue.id = index + 1;
-      this.issuesCollection.update(issue);
-    });
-
-    this.db.saveDatabase(); // Save to disk
-  }
-
-  public getNewIssueID() {
-    return this.issuesCollection.count() + 1;
-  }
-
-  public async createExampleData() {
-    const exampleData = [
-      {
-        id: 1,
-        title: "Example Issue",
-        description: "This is an example issue",
-        priority: "low",
-        status: "open",
-        tags: ["example", "issue"],
-        comments: [
-          {
-            id: 1,
-            text: "This is a comment",
-            created: new Date(),
-          },
-        ],
-        created: new Date(),
-        updated: null,
-        closed: null,
-      },
-      {
-        id: 2,
-        title: "Another Example Issue",
-        description: "This is another example issue",
-        priority: "high",
-        status: "open",
-        tags: ["example", "issue"],
-        comments: [
-          {
-            id: 1,
-            text: "This is a comment",
-            created: new Date(),
-          },
-        ],
-        created: new Date(),
-        updated: null,
-        closed: null,
-      },
-    ];
-
-    this.issuesCollection.insert(exampleData);
-    this.db.saveDatabase(); // Save to disk
-  }
+        this.issuesCollection.insert(exampleData);
+        this.db.saveDatabase(); // Save to disk
+    }
 }

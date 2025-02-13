@@ -25,7 +25,7 @@
 </script>
 
 <!-- OUTER DIV: Only this is draggable -->
-<div class="w-full h-10 fixed top-0 left-0 drag">
+<div class="w-full h-10 fixed top-0 left-0 z-10 drag">
     <div class="w-full h-10 fixed top-0 left-0">
         <div class="w-full h-10  flex flex-row items-center justify-start gap-4">
             <div class="w-10 h-10 flex items-center justify-center">
