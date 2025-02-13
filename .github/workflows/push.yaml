@@ -1,5 +1,8 @@
 name: Lint the codebase
 
+permissions:
+  contents: write
+
 on:
   push:
 
