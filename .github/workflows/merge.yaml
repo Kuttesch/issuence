@@ -10,11 +10,15 @@ jobs:
     merge:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
+          - name: Checkout repository
+            uses: actions/checkout@v2
+          - name: Setup Node.js with pnpm
+            run: |
+              npm install -g pnpm
+              pnpm install  
 
-            - name: Setup Node.js with pnpm
-              uses: ./.github/actions/setup-node
+          - name: Setup Node.js with pnpm
+            uses: ./.github/actions/setup-node
 
-            - name: Check dev
-              run: pnpm --filter frontend dev && pnpm --filter backend dev
+          - name: Check dev
+            run: pnpm --filter frontend dev && pnpm --filter backend dev

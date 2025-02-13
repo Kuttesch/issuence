@@ -33,11 +33,12 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Repull repository
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js with pnpm
+        run: |
+          npm install -g pnpm
+          pnpm install  
 
       - name: Build frontend (Svelte)
         run: pnpm --filter apps/frontend build
