@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "pnpm run build && pnpm run start",
     "start": "electron .",
-    "build": "npx tsc"
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
   "dependencies": {
     "@types/lokijs": "^1.5.14",
     "@types/lowdb": "^1.0.15",
+    "eslint": "^9.20.1",
     "lokijs": "^1.5.12"
   }
 }
