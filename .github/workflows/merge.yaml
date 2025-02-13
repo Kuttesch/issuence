@@ -1,0 +1,16 @@
+name: On merge
+
+on:
+  push:
+    branches:
+      - dev-main
+      - main
+
+jobs:
+    merge:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: ./.github/actions/setup-node
+            - name: Check dev
+              run: pnpm --filter frontend dev && pnpm --filter backend dev

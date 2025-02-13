@@ -1,0 +1,27 @@
+name: Lint the codebase
+
+on:
+  push:
+
+jobs:
+  lint:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-node
+      - name: Format frontend
+        run: |
+           cd apps/frontend
+           pnpm prettier
+      - name: Push changes
+        run: |
+           git config --global user.name "github-actions[bot]"
+           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+           git commit -am "chore: format codebase"
+           git push
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Lint backend
+        run: pnpm --filter backend lint
