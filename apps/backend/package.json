@@ -3,9 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
+  "build": {
+    "appId": "com.kuttesch.issues",
+    "productName": "Issues",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "public/**/*",
+      "data/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
   "scripts": {
-    "dev": "pnpm run build && pnpm run start",
+    "dev": "pnpm run build-ts && pnpm run start",
     "start": "electron .",
+    "build-ts": "npx tsc",
+    "build-electron": "npx electron-builder",
+    "build": "pnpm run build-ts && pnpm run build-electron",
     "lint": "eslint ."
   },
   "keywords": [],
