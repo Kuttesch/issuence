@@ -42,9 +42,9 @@ declare global {
     closed: Date | null;
   };
 
-  type Priority = 'low' | 'medium' | 'high';
+  type Priority = "low" | "medium" | "high";
 
-  type Status = 'open' | 'done' | 'current' | 'later';
+  type Status = "open" | "done" | "current" | "later";
 
-  type Tags = 'bug' | 'feature' | 'improvement';
+  type Tags = "bug" | "feature" | "improvement";
 }
