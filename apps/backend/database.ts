@@ -75,6 +75,8 @@ export default class DB {
     if (issue) {
       this.issuesCollection.remove(issue);
     }
+  }
+  
     public async createExampleData() {
         this.db.removeCollection("issues");
         const exampleData = [
