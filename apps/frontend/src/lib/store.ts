@@ -15,6 +15,7 @@ export const frontendVariables = writable<FrontendVariables>({
         status: "open",
         tags: [],
         comments: [],
+        todoItems: [],
         created: new Date(),
         updated: null,
         closed: null,

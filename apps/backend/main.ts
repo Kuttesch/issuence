@@ -1,14 +1,15 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import DB from "./database";
-import { Issue } from "./data";
 
 let db: DB | null = null;
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 950,
+    height: 500,
+    minWidth: 950,
+    minHeight: 500,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // Set preload script path
       nodeIntegration: false, // Disable nodeIntegration for security
@@ -26,7 +27,7 @@ function createWindow() {
 app.whenReady().then(async () => {
   db = new DB();
   await db.initDB();
-  // db.createExampleData();
+  // await db.createExampleData();
   console.log("Database initialized");
   console.log(db.getListOfAllIssueNames());
   createWindow();

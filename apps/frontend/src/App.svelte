@@ -5,7 +5,9 @@
   import Header from "./lib/Header.svelte";
   import { onDestroy, onMount } from 'svelte';
   import DrawerItem from "./lib/DrawerItem.svelte";
+  import { SalePercentOutline } from "flowbite-svelte-icons";
 
+  let hoverDiv: HTMLDivElement | null = null;
   let drawerDisabled: boolean = true;
   let drawerAlways: boolean = false;
   let issueNames: string[] = [];
@@ -30,6 +32,15 @@
     }
   }
 
+  function handleMouseEnter() {
+    console.log("Mouse Enter");
+    setTimeout(() => {
+      if (hoverDiv?.matches(":hover")) {
+        switchDrawer(false);
+      }
+    }, 100);
+  }
+
   function handleKeydown(event: KeyboardEvent) {
     if (event.ctrlKey && event.key === 'q') {
       drawerAlways = !drawerAlways;
@@ -50,7 +61,7 @@
   <!-- Currently not needed -->
   <Header />
 
-  <div class="w-1/32 h-11/12 fixed left-0 top-1/24rounded-r-xl" on:mouseenter={() => switchDrawer(false)} role="button" tabindex={0}></div>
+  <div class="w-1/32 h-11/12 fixed left-0 top-1/24rounded-r-xl" bind:this={hoverDiv} on:mouseenter={handleMouseEnter} role="button" tabindex={0}></div>
 
   <div class="w-screen h-screen flex flex-row items-center justify-center">
     <Drawer hidden={drawerDisabled} on:onmouseleave={() => switchDrawer(true)}>
