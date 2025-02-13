@@ -24,8 +24,7 @@
     "start": "electron .",
     "build-ts": "npx tsc",
     "build-electron": "npx electron-builder",
-    "build": "pnpm run build-ts && pnpm run build-electron",
-    "lint": "eslint ."
+    "build": "pnpm run build-ts && pnpm run build-electron"
   },
   "keywords": [],
   "author": "",
@@ -41,7 +40,6 @@
   "dependencies": {
     "@types/lokijs": "^1.5.14",
     "@types/lowdb": "^1.0.15",
-    "eslint": "^9.20.1",
     "lokijs": "^1.5.12"
   }
 }
