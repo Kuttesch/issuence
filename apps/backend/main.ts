@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import DB from "./database";
 import { Issue } from "./data";
+import { format } from "url";
 
 let db: DB | null = null;
 
@@ -17,10 +18,23 @@ function createWindow() {
     frame: false,
   });
 
-  win.loadURL("http://localhost:5173/"); // Change to where your Svelte app is served
-  win.webContents.openDevTools({
-    mode: "detach",
-  });
+  const isDev = !app.isPackaged;
+  const startURL = isDev
+    ? 'http://localhost:5173'
+    : format({
+        pathname: path.join(__dirname, '../public/index.html'),
+        protocol: 'file:',
+        slashes: true
+      });
+
+
+  win.loadURL(startURL);
+
+  if (isDev) {
+    win.webContents.openDevTools({
+      mode: "detach",
+    });
+  }
 }
 
 app.whenReady().then(async () => {
