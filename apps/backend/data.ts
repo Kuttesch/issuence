@@ -1,42 +1,42 @@
-import DB from './database';
+import DB from "./database";
 
 enum Priority {
-    LOW = 'LOW',
-    MEDIUM = 'MEDIUM',
-    HIGH = 'HIGH'
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
 }
 enum Status {
-    OPEN = 'OPEN',
-    CURRENT = 'CURRENT',
-    LATER = 'LATER',
-    DONE = 'DONE'
+  OPEN = "OPEN",
+  CURRENT = "CURRENT",
+  LATER = "LATER",
+  DONE = "DONE",
 }
 enum Tags {
-    BUG = 'BUG',
-    FEATURE = 'FEATURE',
-    IMPROVEMENT = 'IMPROVEMENT'
+  BUG = "BUG",
+  FEATURE = "FEATURE",
+  IMPROVEMENT = "IMPROVEMENT",
 }
 
 class Comment {
-    public id: number;
-    public text: string;
-    public created: Date;
-    public updated: Date;
+  public id: number;
+  public text: string;
+  public created: Date;
+  public updated: Date;
 
-    constructor(id: number) {
-        this.id = id;
-        this.text = '';
-        this.created = new Date();
-        this.updated = new Date();
-    }
+  constructor(id: number) {
+    this.id = id;
+    this.text = "";
+    this.created = new Date();
+    this.updated = new Date();
+  }
 
-    public changeText(text: string) {
-        this.text = text;
-    }
+  public changeText(text: string) {
+    this.text = text;
+  }
 
-    public update() {
-        this.updated = new Date();
-    }
+  public update() {
+    this.updated = new Date();
+  }
 }
 
 class TodoItem {

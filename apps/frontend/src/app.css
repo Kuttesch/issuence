@@ -64,7 +64,6 @@ h1 {
   -ms-overflow-style: none;
 }
 
-
 .drag {
   -webkit-app-region: drag;
   -webkit-user-select: none;
@@ -73,7 +72,6 @@ h1 {
 .no-drag {
   -webkit-app-region: no-drag;
 }
-
 
 /* 
 button {
@@ -99,12 +97,12 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     /* color: #213547; */
-    /* background-color: #ffffff; */
-  /* } */
-  /* a:hover { */
-    /* color: #747bff; */
-  /* } */
-  /* button { */
-    /* background-color: #f9f9f9; */
-  /* } */
+/* background-color: #ffffff; */
+/* } */
+/* a:hover { */
+/* color: #747bff; */
+/* } */
+/* button { */
+/* background-color: #f9f9f9; */
+/* } */
 /* } */
