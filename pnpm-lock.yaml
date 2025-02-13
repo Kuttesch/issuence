@@ -13,12 +13,12 @@ importers:
       '@types/lokijs':
         specifier: ^1.5.14
         version: 1.5.14
-      '@types/lowdb':
-        specifier: ^1.0.15
-        version: 1.0.15
       lokijs:
         specifier: ^1.5.12
         version: 1.5.12
+      prettier:
+        specifier: ^3.5.1
+        version: 3.5.1
     devDependencies:
       '@types/jest':
         specifier: ^29.5.14
@@ -552,14 +552,8 @@ packages:
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
 
-  '@types/lodash@4.17.15':
-    resolution: {integrity: sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw==}
-
   '@types/lokijs@1.5.14':
     resolution: {integrity: sha512-4Fic47BX3Qxr8pd12KT6/T1XWU8dOlJBIp1jGoMbaDbiEvdv50rAii+B3z1b/J2pvMywcVP+DBPGP5/lgLOKGA==}
-
-  '@types/lowdb@1.0.15':
-    resolution: {integrity: sha512-xaMNIveDCryK4UvnUJOc2BCOH0lPivdvWHrutsLryo9r9Id3RqZq2RDmT4eddiEPYzu7nJMw6nFIcVifcqjWqg==}
 
   '@types/node@20.17.17':
     resolution: {integrity: sha512-/WndGO4kIfMicEQLTi/mDANUu/iVUhT7KboZPdEqqHQ4aTS+3qT3U5gIqWDFV+XouorjfgGqvKILJeHhuQgFYg==}
@@ -1687,13 +1681,7 @@ snapshots:
     dependencies:
       '@types/node': 22.13.1
 
-  '@types/lodash@4.17.15': {}
-
   '@types/lokijs@1.5.14': {}
-
-  '@types/lowdb@1.0.15':
-    dependencies:
-      '@types/lodash': 4.17.15
 
   '@types/node@20.17.17':
     dependencies:
