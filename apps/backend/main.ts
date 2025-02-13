@@ -4,7 +4,6 @@ import DB from "./database";
 import { Issue } from "./data";
 import { format } from "url";
 
-
 let db: DB | null = null;
 
 function createWindow() {
