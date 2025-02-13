@@ -24,7 +24,8 @@
     "start": "electron .",
     "build-ts": "npx tsc",
     "build-electron": "npx electron-builder",
-    "build": "pnpm run build-ts && pnpm run build-electron"
+    "build": "pnpm run build-ts && pnpm run build-electron",
+    "prettier": "prettier --write ."
   },
   "keywords": [],
   "author": "",

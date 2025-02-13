@@ -22,6 +22,10 @@ jobs:
         run: |
            cd apps/frontend
            pnpm prettier
+      - name: Format backend
+        run: |
+           cd apps/backend
+           pnpm prettier
       - name: Push changes
         run: |
            git config --global user.name "github-actions[bot]"
@@ -30,6 +34,3 @@ jobs:
            git push
         env:
           TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Lint backend
-        run: pnpm --filter backend lint
