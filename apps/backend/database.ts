@@ -8,9 +8,9 @@ export default class DB {
   private issuesCollection: any;
 
   constructor(file: string = "database.json") {
-    this.db = new loki(file, { persistenceMethod: "fs" }); // Use file system for persistence  
+    this.db = new loki(file, { persistenceMethod: "fs" }); // Use file system for persistence
   }
-  
+
   public async initDB() {
     return new Promise<void>((resolve, reject) => {
       this.db.loadDatabase({}, (err) => {
@@ -33,7 +33,7 @@ export default class DB {
       });
     });
   }
-  
+
   public async getIssue(id: number) {
     const issue = this.issuesCollection.findOne({ id });
     return issue;

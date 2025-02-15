@@ -151,7 +151,6 @@ class Issue {
     this.status = Status.OPEN;
     this.closed = null;
   }
-
 }
 
 export { Issue, Comment, TodoItem, Priority, Status, Tags };

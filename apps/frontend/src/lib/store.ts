@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { Issue} from "../../data";
+import { Issue } from "../../data";
 
 export interface FrontendVariables {
   currentIssueId: number;
@@ -12,7 +12,6 @@ const defaultFrontendVariables: FrontendVariables = {
 };
 
 export const frontendVariables = writable(defaultFrontendVariables);
-
 
 export function resetFrontendVariables() {
   frontendVariables.set(defaultFrontendVariables);

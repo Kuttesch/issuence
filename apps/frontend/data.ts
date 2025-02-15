@@ -36,7 +36,7 @@ class TodoItem {
   public text: string;
   public done: boolean;
 
-  constructor(id:number, text: string) {
+  constructor(id: number, text: string) {
     this.id = id;
     this.text = text;
     this.done = false;
@@ -151,7 +151,6 @@ class Issue {
     this.status = Status.OPEN;
     this.closed = null;
   }
-
 }
 
 export { Issue, Comment, TodoItem, Priority, Status, Tags };
