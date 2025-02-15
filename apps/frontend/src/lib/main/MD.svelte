@@ -17,7 +17,7 @@
 </script>
 
 
-<div class="w-full min-h-[10vh] max-h-[40vh] h-auto text-lg text-text flex flex-col items-start justify-start pt-4">
+<div class="w-full min-h-[15vh] max-h-[40vh] h-auto text-lg text-text flex flex-col items-start justify-start pt-4">
         {@html marked(mdSource)}
         {@html marked(mdSource)}
 
