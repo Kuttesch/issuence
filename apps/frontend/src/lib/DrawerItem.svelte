@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { frontendVariables } from "./store";
+  import { frontendVariables, resetFrontendVariables } from "./store";
 
     export let name: string = '';
 
     async function handleClick() {
+        await resetFrontendVariables();
         $frontendVariables.currentIssueId = await window.electron.database.getIdOfIssue(name);
         $frontendVariables.currentIssue = await window.electron.database.getIssue($frontendVariables.currentIssueId);
         console.log($frontendVariables.currentIssue);
