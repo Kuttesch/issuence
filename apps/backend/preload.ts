@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { Issue } from "./data";
+import type { Issue } from "./data";
 
 contextBridge.exposeInMainWorld("electron", {
   windowControls: {
