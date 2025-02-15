@@ -32,7 +32,7 @@
                 <BarsOutline class="h-6 w-6 hover:scale-110" />
             </div>
             <div class="w-full h-10 flex items-center justify-start gap-4">
-                <div class="text-lg text-text">Title</div>
+                <div class="text-lg text-text font-bold">Issuence</div>
             </div>
         </div>
 
