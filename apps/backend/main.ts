@@ -17,6 +17,7 @@ function createWindow() {
       contextIsolation: true, // Isolate renderer process from node.js
     },
     frame: false,
+    icon: path.join(__dirname, '/src/icon.png')
   });
 
   const isDev = !app.isPackaged;
@@ -36,7 +37,6 @@ function createWindow() {
     });
   }
 }
-
 app.whenReady().then(async () => {
   console.log("Initializing database");
   db = new DB();

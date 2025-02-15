@@ -4,19 +4,22 @@
   "description": "",
   "main": "dist/main.js",
   "build": {
-    "appId": "com.kuttesch.issues",
-    "productName": "Issues",
+    "appId": "com.kuttesch.Issuence",
+    "productName": "Issuence",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "src"
     },
     "files": [
       "dist/**/*",
       "public/**/*",
       "data/**/*",
+      "src/**/*",
       "package.json"
     ],
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "src/icon.png"
     }
   },
   "scripts": {
