@@ -2,7 +2,7 @@
   import "./app.css";
   import Main from "./lib/Main.svelte";
   import Drawer from "./lib/Drawer.svelte";
-  import Header from "./lib/Header.svelte";
+  import Titlebar from "./lib/Titlebar.svelte";
   import { onDestroy, onMount } from 'svelte';
   import DrawerItem from "./lib/DrawerItem.svelte";
   import { SalePercentOutline } from "flowbite-svelte-icons";
@@ -59,9 +59,9 @@
 </script>
 <!-- {#if apiFlag} -->
   <!-- Currently not needed -->
-  <Header />
+  <Titlebar />
 
-  <div class="w-1/32 h-11/12 fixed left-0 top-1/24rounded-r-xl" bind:this={hoverDiv} on:mouseenter={handleMouseEnter} role="button" tabindex={0}></div>
+  <div class="w-1/32 h-11/12 fixed left-0 top-1/24 rounded-r-xl" bind:this={hoverDiv} on:mouseenter={handleMouseEnter} role="button" tabindex={0}></div>
 
   <div class="w-screen h-screen flex flex-row items-center justify-center">
     <Drawer hidden={drawerDisabled} on:onmouseleave={() => switchDrawer(true)}>
