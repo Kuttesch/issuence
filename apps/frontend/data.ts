@@ -36,9 +36,9 @@ class TodoItem {
   public text: string;
   public done: boolean;
 
-  constructor() {
-    this.id = 0;
-    this.text = "";
+  constructor(id:number, text: string) {
+    this.id = id;
+    this.text = text;
     this.done = false;
   }
 
