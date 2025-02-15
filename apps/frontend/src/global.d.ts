@@ -21,37 +21,4 @@ declare global {
       };
     };
   }
-
-  type Comment = {
-    id: number;
-    text: string;
-    created: Date;
-    updated?: Date;
-  };
-
-  type TodoItem = {
-    id: number;
-    text: string;
-    done: boolean;
-  };
-
-  type Issue = {
-    id: number;
-    title: string;
-    description: string;
-    priority: Priority;
-    status: Status;
-    tags: Tags[];
-    comments: Comment[];
-    todoItems: TodoItem[];
-    created: Date;
-    updated: Date | null;
-    closed: Date | null;
-  };
-
-  type Priority = "low" | "medium" | "high";
-
-  type Status = "open" | "done" | "current" | "later";
-
-  type Tags = "bug" | "feature" | "improvement";
 }
