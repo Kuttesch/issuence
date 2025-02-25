@@ -7,15 +7,27 @@ on:
       - main
 
 jobs:
-    merge:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repository
-            uses: actions/checkout@v2
-          - name: Setup Node.js with pnpm
-            run: |
-              npm install -g pnpm
-              pnpm install  
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-          - name: Check dev
-            run: pnpm --filter frontend dev && pnpm --filter backend dev
+      - name: Setup Node.js with pnpm
+        run: |
+          npm install -g pnpm
+          pnpm install  
+
+      - name: Start frontend
+        run: |
+          pnpm --filter frontend dev &
+          FRONTEND_PID=$!
+          sleep 10
+          kill $FRONTEND_PID
+
+      - name: Start backend
+        run: |
+          pnpm --filter backend dev &
+          BACKEND_PID=$!
+          sleep 10
+          kill $BACKEND_PID
