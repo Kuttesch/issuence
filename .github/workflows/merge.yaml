@@ -30,7 +30,9 @@ jobs:
 
       - name: Start backend
         run: |
-          pnpm --filter backend dev &
+          pnpm --filter backend build-ts
+          xvfb-run --auto-servernum -- pnpm --filter backend start -- --no-sandbox &
           BACKEND_PID=$!
           sleep 10
           kill $BACKEND_PID
+
