@@ -1,9 +1,11 @@
 {
-  "name": "issues-electron",
+  "name": "issuence",
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "release": "pnpm --filter frontend run build && pnpm --filter backend run build"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

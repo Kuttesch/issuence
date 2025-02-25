@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
+    "prettier": "prettier --write ."
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
@@ -15,13 +16,23 @@
     "flowbite": "^3.1.1",
     "flowbite-svelte": "^0.47.4",
     "flowbite-svelte-icons": "^2.0.2",
+    "prettier": "^3.5.1",
     "svelte": "^5.19.6",
     "svelte-check": "^4.1.4",
     "typescript": "~5.7.2",
     "vite": "^6.1.0"
   },
   "dependencies": {
+    "@cartamd/plugin-code": "^4.0.6",
+    "@cartamd/plugin-component": "^1.0.2",
+    "@cartamd/plugin-slash": "^4.1.2",
     "@tailwindcss/vite": "^4.0.3",
+    "@types/marked": "^6.0.0",
+    "carta-md": "^4.7.0",
+    "marked": "^15.0.7",
+    "rehype": "^13.0.2",
+    "rehype-starry-night": "^2.2.0",
+    "svelte-vertical-timeline": "^2.0.0",
     "tailwindcss": "^4.0.3"
   }
 }

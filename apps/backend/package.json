@@ -3,10 +3,32 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
+  "build": {
+    "appId": "com.kuttesch.Issuence",
+    "productName": "Issuence",
+    "directories": {
+      "output": "dist",
+      "buildResources": "src"
+    },
+    "files": [
+      "dist/**/*",
+      "public/**/*",
+      "data/**/*",
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/icon.png"
+    }
+  },
   "scripts": {
-    "dev": "pnpm run build && pnpm run start",
+    "dev": "pnpm run build-ts && pnpm run start",
     "start": "electron .",
-    "build": "npx tsc"
+    "build-ts": "npx tsc",
+    "build-electron": "npx electron-builder",
+    "build": "pnpm run build-ts && pnpm run build-electron",
+    "prettier": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -21,7 +43,7 @@
   },
   "dependencies": {
     "@types/lokijs": "^1.5.14",
-    "@types/lowdb": "^1.0.15",
-    "lokijs": "^1.5.12"
+    "lokijs": "^1.5.12",
+    "prettier": "^3.5.1"
   }
 }

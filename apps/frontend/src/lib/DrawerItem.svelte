@@ -1,19 +1,18 @@
 <script lang="ts">
-  import { Button } from "flowbite-svelte";
-  import { frontendVariables } from "./store";
+    import { createEventDispatcher } from "svelte";
+  import { frontendVariables, resetFrontendVariables } from "./store";
 
     export let name: string = '';
 
+    const dispatcher = createEventDispatcher();
     async function handleClick() {
-        $frontendVariables.currentIssueId = await window.electron.database.getIdOfIssue(name);
-        $frontendVariables.currentIssue = await window.electron.database.getIssue($frontendVariables.currentIssueId);
-        console.log($frontendVariables.currentIssue);
+        dispatcher('switchIssue', name);
     }
 
 </script>
 
-<div class="w-9/10 h-10 rounded-l flex flex-row items-center justify-start pl-10 hover:bg-background ease-in-out transition-all duration-100" on:click={handleClick}>
-    <div class="text-lg text-text">
+<div class="w-9/10 h-10 rounded-l flex flex-row items-center justify-start hover:bg-background ease-in-out transition-all duration-100" on:click={handleClick}>
+    <div class="text-x text-text">
         {name}
     </div>
 </div>

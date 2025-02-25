@@ -1,46 +1,62 @@
 <script lang="ts">
-    import {Badge, P} from 'flowbite-svelte';
+    import { Badge, Hr, P } from 'flowbite-svelte';
+    import MD from './main/MD.svelte';
     import { frontendVariables } from './store';
-
-    function formatDate(date_string: Date) {
-        let date = new Date(date_string);
-        if (date.toLocaleDateString == new Date().toLocaleDateString) {
-            return date.toLocaleTimeString();
+    import Comments from './main/Comments.svelte';
+    import Header from './main/Header.svelte';
+    import TodoList from './main/TodoList.svelte';
+    import { tick } from 'svelte';
+    
+    let editBool: boolean = false;
+    export const loadNewIssue: (issueName?: string) => Promise<void> = async (issueName) => {
+        let id;
+        console.log('loading new issue');
+        if (issueName) {
+            if ($frontendVariables.currentIssue) {
+                saveCurrentIssue();
+            }
+            id = await window.electron.database.getIdOfIssue(issueName);
+            $frontendVariables.currentIssue = await window.electron.database.getIssue(id);
         } else {
-            return date.toDateString();
+            throw new Error('Issue name not provided');
+        }
+    };
+
+
+    async function scrollToBottom() { //!TODO fix jankiness
+        await tick();
+        const div = document.getElementById('scroll');
+        if (div) {
+            div.scrollTop = div.scrollHeight;
+            console.log('scrolling to bottom');
+        } else {
+            console.log('scrolling failed');
         }
     }
 
+    function edit() {
+        editBool = true;
+    }
+
+    function noEdit() {
+        editBool = false;
+    }
+
+    // ## Issue saving ## //
+
+    function saveCurrentIssue() {
+        console.log('saving issue');
+        window.electron.database.saveIssue($frontendVariables.currentIssue);
+    }
+
 </script>
-
-<div class="w-5/6 h-full flex flex-row items-center justify-center p-2">
-    <div class="w-full h-full bg-background-secondary rounded-2xl shadow-2xl flex flex-col items-center justify-start">
-        <div class="w-full h-2/5            rounded-t-2xl flex items-start justify-center">
-            <div class="w-full h-2/5        rounded-t-2xl flex flex-row items-start justify-start p-2">
-                <div class="w-3/5 h-full    text-2xl font-bold flex flex-col items-start justify-start ml-4">
-                    <div class="w-3/5 h-1/2 text-2xl font-bold flex flex-row items-center justify-start">{$frontendVariables.currentIssue.title}</div>
-                    <div class="w-3/5 h-1/2 font-bold flex flex-row items-start justify-start">
-                        <div class="w-1/3 h-full flex flex-row items-center justify-start">
-                            {#if $frontendVariables.currentIssue.status === 'open'}
-                                <Badge color="green" class="text-xs w-2/3 h-2/3" rounded >open</Badge>
-                            {:else if $frontendVariables.currentIssue.status === 'current'}
-                                <Badge color="blue" class="text-xs w-2/3 h-2/3" rounded>current</Badge>
-                            {:else if $frontendVariables.currentIssue.status === 'done'}
-                                <Badge color="red" class="text-xs w-2/3 h-2/3" rounded>done</Badge>
-                            {/if}
-                        </div>
-                        <div class="w-2/3 h-full  flex flex-row items-center justify-start">
-                            <div class="text-text text-lg font-normal">Issue created: {formatDate($frontendVariables.currentIssue.created)}</div> <!--!TODO Styling-->
-                        </div>
-                    </div>
-                </div>
-                <div class="w-2/5 h-full flex flex-row-reverse items-center justify-start p-2 mr-4">
-                        <div class="text-xl bg-background rounded pl-3 pr-3 pb-1 pt-1"> Edit </div>
-                </div>
-                
-            </div>
-        </div>
-
-
+<div id="scroll" class="w-3/4 min-w-170 h-full flex flex-col items-start justify-start overflow-y-scroll scrollbar-hide">
+    <div class="w-full h-auto bg-background-secondary rounded-2xl flex flex-col items-start justify-start p-12 gap-4">
+        <Header on:edit={edit} on:noEdit={noEdit} on:saveCurrentIssue={saveCurrentIssue}/>
+        <MD edit={editBool} on:saveCurrentIssue={saveCurrentIssue}/>
+        <TodoList on:saveCurrentIssue={saveCurrentIssue}/>
+        <Hr/>
+        <Comments on:saveCurrentIssue={saveCurrentIssue}/>
+        <!-- <Footer on:scrollToBottom={() => { scrollToBottom() }} on:saveCurrentIssue={saveCurrentIssue}/> -->
     </div>
 </div>
