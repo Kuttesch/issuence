@@ -1,11 +1,17 @@
 <script lang="ts">
-    import { Badge, Button } from "flowbite-svelte";
+    import MD from "./MD.svelte";
+    import { Badge, Button, Input } from "flowbite-svelte";
     import { frontendVariables } from "../store";
     import { CalendarEditOutline, CalendarWeekOutline, ClockOutline, EditOutline, EditSolid, TruckClockOutline, UserEditOutline } from "flowbite-svelte-icons";
     import { Status } from "../../../data";
+    import { createEventDispatcher } from "svelte";
     let timeDate :boolean	= false;
     let edited: boolean = false;
     let shownDate: Date | null = null;
+    let edit: boolean;
+
+    const dispatcher = createEventDispatcher();
+    
 
     function formatDate(date_string: Date | null): string {
         if (date_string === null) {
@@ -26,19 +32,20 @@
         }
     }
 
-    $: if ($frontendVariables.currentIssue.updated !== null) {
-        console.log($frontendVariables.currentIssue.updated);
-        edited = true;
-        shownDate = $frontendVariables.currentIssue.updated;
-    } else {
-        edited = false;
-        shownDate = $frontendVariables.currentIssue.created;
+    async function clickBadge(status: Status) {
+        $frontendVariables.currentIssue.status = status;
+        dispatcher('saveCurrentIssue');
     }
 
-    async function clickBadge(status: Status) {
-        console.log(status);
-        $frontendVariables.currentIssue.status = status;
-        await window.electron.database.saveIssue($frontendVariables.currentIssue);
+    function switchEdit() {
+        edit = !edit;
+        if (edit) {
+            dispatcher('edit');
+            dispatcher('saveCurrentIssue');
+        } else {
+            dispatcher('noEdit');
+            dispatcher('saveCurrentIssue');
+        }
     }
 
 </script>
@@ -47,10 +54,13 @@
 <div class="w-full h-40 rounded-t-2xl flex flex-row items-start justify-start               ">
     <div class="w-6/7 h-full text-2xl font-bold flex flex-col items-start justify-start     ">
 <!-- Title -->
-        <div class="w-5/5 h-1/2 text-3xl font-bold flex flex-row items-center justify-start ">
-            {$frontendVariables.currentIssue.title}
-        </div>
-<!-- Status -->
+        {#if edit}
+            <Input color="" class="w-5/5 h-1/2 text-3xl font-bold flex flex-row items-center justify-start p-0  hover: outline-0" placeholder="Title" bind:value={$frontendVariables.currentIssue.title} />
+        {:else}
+            <div class="w-5/5 h-1/2 text-3xl font-bold flex flex-row items-center justify-start ">
+                {$frontendVariables.currentIssue.title}
+            </div>
+        {/if}
         <div class="w-2/5 h-1/2 font-bold flex flex-row items-start justify-start           ">
             <div class="min-w-25 w-1/4 h-full flex flex-row items-center justify-start              ">
                 {#if $frontendVariables.currentIssue.status === Status.OPEN}
@@ -73,7 +83,7 @@
             </div>
 <!-- Date -->
             <div class="w-3/4 h-full flex flex-row items-center justify-start">
-                {#if edited}
+                {#if $frontendVariables.currentIssue.updated !== null}
                     {#if timeDate}
                     <UserEditOutline class="w-7 h-full mr-2"/>
                     {:else}
@@ -86,12 +96,12 @@
                         <CalendarWeekOutline class="w-7 h-full mr-2"/>
                     {/if}
                 {/if}
-                <div class="text-text text-lg font-normal">{formatDate(shownDate)}</div> <!--!TODO Styling-->
+                <div class="text-text text-lg font-normal">{formatDate($frontendVariables.currentIssue.updated ?? $frontendVariables.currentIssue.created)}</div> <!--!TODO Styling-->
             </div>
         </div>
     </div>
 <!-- Edit -->
     <div class="w-1/7 h-full flex flex-row-reverse items-center justify-start">
-            <Button class="w-20 h-12 bg-primary text-text text-lg font-bold rounded-xl hover:scale-110 focus: ring-transparent"> Edit </Button>
+            <Button class="w-20 h-12 bg-primary text-text text-lg font-bold rounded-xl hover:scale-110 focus: ring-transparent" on:click={switchEdit}> Edit </Button>
     </div>
 </div>
