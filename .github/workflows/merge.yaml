@@ -17,6 +17,9 @@ jobs:
         run: |
           npm install -g pnpm
           pnpm install  
+      
+      - name: Fix Electron sandbox permissions
+        run: sudo chown root:root node_modules/.pnpm/electron@*/node_modules/electron/dist/chrome-sandbox && sudo chmod 4755 node_modules/.pnpm/electron@*/node_modules/electron/dist/chrome-sandbox
 
       - name: Start frontend
         run: |
