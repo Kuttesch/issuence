@@ -1,13 +1,12 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
   import { frontendVariables, resetFrontendVariables } from "./store";
 
     export let name: string = '';
 
+    const dispatcher = createEventDispatcher();
     async function handleClick() {
-        await resetFrontendVariables();
-        $frontendVariables.currentIssueId = await window.electron.database.getIdOfIssue(name);
-        $frontendVariables.currentIssue = await window.electron.database.getIssue($frontendVariables.currentIssueId);
-        console.log($frontendVariables.currentIssue);
+        dispatcher('switchIssue', name);
     }
 
 </script>
