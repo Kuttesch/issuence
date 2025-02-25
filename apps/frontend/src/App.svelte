@@ -5,7 +5,8 @@
   import Titlebar from "./lib/Titlebar.svelte";
   import { onDestroy, onMount } from "svelte";
   import DrawerItem from "./lib/DrawerItem.svelte";
-  import { SalePercentOutline } from "flowbite-svelte-icons";
+  import { frontendVariables } from "./lib/store";
+  import Start from "./lib/Start.svelte";
 
   let hoverDiv: HTMLDivElement | null = null;
   let drawerDisabled: boolean = true;
@@ -16,6 +17,7 @@
   };
 
   async function handleSwitchIssue(event: CustomEvent<string>) {
+    $frontendVariables.currentPage = 1;
     if (loadNewIssue) {
       await loadNewIssue(event.detail); // Await the async function
     }
@@ -79,6 +81,12 @@
     {/each}
   </Drawer>
   <div class="w-full h-full flex items-center justify-center pt-10">
+
+    {#if $frontendVariables.currentPage === 0}
+    <Start />
+    {:else if $frontendVariables.currentPage === 1}
     <Main bind:loadNewIssue={loadNewIssue} />
+    {/if}
+
   </div>
 </div>

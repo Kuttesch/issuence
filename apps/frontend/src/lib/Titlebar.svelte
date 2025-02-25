@@ -1,6 +1,8 @@
 <script lang="ts">
     import { Button } from 'flowbite-svelte';
     import { CloseOutline, ExpandOutline, MinimizeOutline, DotsHorizontalOutline, BarsOutline } from 'flowbite-svelte-icons';
+    import icon from '../assets/icon.png';
+    import { frontendVariables } from './store';
 
     let maximized: boolean = false;
     console.log(window.electron);
@@ -28,10 +30,11 @@
 <div class="w-full h-10 fixed top-0 left-0 z-10 drag">
     <div class="w-full h-10 fixed top-0 left-0">
         <div class="w-full h-10  flex flex-row items-center justify-start gap-4">
-            <div class="w-10 h-10 flex items-center justify-center">
+            <!-- <div class="w-10 h-10 flex items-center justify-center">
                 <BarsOutline class="h-6 w-6 hover:scale-110" />
-            </div>
-            <div class="w-full h-10 flex items-center justify-start gap-4">
+            </div> -->
+            <div class="w-full h-10 flex items-center justify-start">
+                <img src={icon} alt="Icon" class="w-6 h-6 m-4 no-drag" on:click={() => {$frontendVariables.currentPage = 0}}/>
                 <div class="text-lg text-text font-bold">Issuence</div>
             </div>
         </div>
