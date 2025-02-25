@@ -5,11 +5,12 @@
     import Comments from './main/Comments.svelte';
     import Header from './main/Header.svelte';
     import TodoList from './main/TodoList.svelte';
-    import Footer from './main/Footer.svelte';
     import { tick } from 'svelte';
     
     let editBool: boolean = false;
-    export const loadNewIssue: (issueName?: string) => Promise<void> = async (issueName) => {        let id;
+    export const loadNewIssue: (issueName?: string) => Promise<void> = async (issueName) => {
+        let id;
+        console.log('loading new issue');
         if (issueName) {
             if ($frontendVariables.currentIssue) {
                 saveCurrentIssue();
