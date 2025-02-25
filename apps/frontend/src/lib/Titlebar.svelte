@@ -37,18 +37,18 @@
         </div>
 
     </div>
-    <div class="h-10 fixed top-0 right-0 flex flex-row-reverse items-center justify-start mr-2 gap-2">
-        <Button on:click={closeApp} class="h-6 w-6 no-drag hover:scale-110 focus: ring-transparent">
+    <div class="h-10 fixed top-0 right-0 flex flex-row-reverse items-center justify-start">
+        <Button on:click={closeApp} class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent">
             <CloseOutline class="h-6 w-6" />
         </Button>
-        <Button on:click={maximizeApp} class="h-6 w-6 no-drag hover:scale-110 focus: ring-transparent">
+        <Button on:click={maximizeApp} class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent">
             {#if maximized}
                 <MinimizeOutline class="h-6 w-6" />
             {:else}
                 <ExpandOutline class="h-6 w-6" />
             {/if}
         </Button>
-        <Button on:click={minimizeApp} class="h-6 w-6 no-drag hover:scale-110 focus: ring-transparent">
+        <Button on:click={minimizeApp} class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent">
             <DotsHorizontalOutline class="h-6 w-6" />
         </Button>
     </div>
