@@ -28,11 +28,6 @@
         <MD/>
         <TodoList/>
         <Hr/>
-        {#if currentIssue?.comments?.length > 0}
-            <Comments/>
-        {:else}
-            <P class="text-text">No comments yet</P>
-        {/if}
-        <Footer on:scrollToBottom={() => { scrollToBottom() }}/>
+        <!-- <Footer on:scrollToBottom={() => { scrollToBottom() }} on:saveCurrentIssue={saveCurrentIssue}/> -->
     </div>
 </div>
