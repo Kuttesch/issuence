@@ -26,8 +26,12 @@ class Comment {
     this.created = new Date();
   }
 
-  public changeText(text: string) {
-    this.text = text;
+  public toJSON() {
+    return {
+      id: this.id,
+      text: this.text,
+      created: this.created,
+    };
   }
 }
 

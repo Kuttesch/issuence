@@ -20,6 +20,7 @@
         let newID = $frontendVariables.currentIssue.comments.length + 1;
         let comment = new Comment(newID, newText);
         $frontendVariables.currentIssue.comments.push(comment);
+        $frontendVariables.currentIssue.comments = $frontendVariables.currentIssue.comments;
         newText = "";
         console.log($frontendVariables.currentIssue.comments)
         dispatcher("saveCurrentIssue");
