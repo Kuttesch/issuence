@@ -53,6 +53,6 @@ jobs:
       - name: Upload release installers to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: apps/backend/dist/*Installer*.exe
+          files: apps/backend/dist/*Setup*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

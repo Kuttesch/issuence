@@ -5,10 +5,12 @@ permissions:
 
 on:
   push:
+    tags: []  # This ensures the workflow doesn't trigger for tags
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/tags/*'  # Skip if it's a tag push
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
