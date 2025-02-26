@@ -29,7 +29,7 @@ jobs:
           git commit -am "chore: set version to $VERSION"
           git push
         env:
-          TOKEN: ${{ secrets.TOKEN }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
