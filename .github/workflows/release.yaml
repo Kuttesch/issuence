@@ -41,17 +41,14 @@ jobs:
           pnpm install  
 
       - name: Build frontend (Svelte)
-        run: pnpm --filter apps/frontend build
+        run: |
+          cd apps/frontend
+          pnpm build
 
       - name: Build backend (Electron)
-        run: pnpm --filter apps/backend build
-
-      - name: Package Electron app
         run: |
           cd apps/backend
-          pnpm run release
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN }}
+          pnpm build
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
