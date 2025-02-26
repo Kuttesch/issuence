@@ -17,22 +17,6 @@ jobs:
         with:
           ref: main
 
-      # - name: Extract version from tag
-      #   run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-
-      # - name: Set version in package.json files
-      #   run: |
-      #     echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-      #     jq --arg version "$VERSION" '.version = $version' apps/backend/package.json | Set-Content -Path apps/backend/package.json
-      #     jq --arg version "$VERSION" '.version = $version' apps/frontend/package.json | Set-Content -Path apps/frontend/package.json
-
-      # - name: Commit updated package.json files
-      #   run: |
-      #     git config --global user.name "github-actions[bot]"
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     git commit -am "chore: set version to $VERSION"
-      #     git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
-
       - name: Setup Node.js with pnpm
         uses: actions/setup-node@v3
         with:
@@ -51,11 +35,11 @@ jobs:
           cd apps/backend
           pnpm build
 
-      - name: Upload artifacts
+      - name: Upload installer files as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-build
-          path: apps/backend/dist/
+          name: release-installers
+          path: apps/backend/dist/*Installer*.exe
 
       - name: Create release
         id: create_release
@@ -65,4 +49,10 @@ jobs:
           release_name: Release ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
+      - name: Upload release installers to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: apps/backend/dist/*Installer*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
