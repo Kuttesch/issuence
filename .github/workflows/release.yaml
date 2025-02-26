@@ -22,9 +22,9 @@ jobs:
 
       - name: Set version in package.json files
         run: |
-          jq --arg version "$env:VERSION" '.version = $version' apps/backend/package.json | Set-Content -Path apps/backend/package.json
-          jq --arg version "$env:VERSION" '.version = $version' apps/frontend/package.json | Set-Content -Path apps/frontend/package.json
-
+          echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+          jq --arg version "$VERSION" '.version = $version' apps/backend/package.json | Set-Content -Path apps/backend/package.json
+          jq --arg version "$VERSION" '.version = $version' apps/frontend/package.json | Set-Content -Path apps/frontend/package.json
 
       - name: Commit updated package.json files
         run: |
