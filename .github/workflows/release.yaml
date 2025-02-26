@@ -63,9 +63,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body_path: root/release_notes/${{ github.ref_name }}.md
-          draft: ${{ endsWith(github.ref, 'rc') || endsWith(github.ref, 'dev') }}
-          prerelease: ${{ endsWith(github.ref, 'rc') || endsWith(github.ref, 'dev') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
