@@ -17,21 +17,21 @@ jobs:
         with:
           ref: main
 
-      - name: Extract version from tag
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      # - name: Extract version from tag
+      #   run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-      - name: Set version in package.json files
-        run: |
-          echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-          jq --arg version "$VERSION" '.version = $version' apps/backend/package.json | Set-Content -Path apps/backend/package.json
-          jq --arg version "$VERSION" '.version = $version' apps/frontend/package.json | Set-Content -Path apps/frontend/package.json
+      # - name: Set version in package.json files
+      #   run: |
+      #     echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      #     jq --arg version "$VERSION" '.version = $version' apps/backend/package.json | Set-Content -Path apps/backend/package.json
+      #     jq --arg version "$VERSION" '.version = $version' apps/frontend/package.json | Set-Content -Path apps/frontend/package.json
 
-      - name: Commit updated package.json files
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: set version to $VERSION"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
+      # - name: Commit updated package.json files
+      #   run: |
+      #     git config --global user.name "github-actions[bot]"
+      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      #     git commit -am "chore: set version to $VERSION"
+      #     git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
 
       - name: Setup Node.js with pnpm
         run: |
