@@ -25,12 +25,16 @@ jobs:
         run: |
            cd apps/backend
            pnpm prettier
+
+      - name: Checkout branch before pushing
+        run: |
+          git checkout main || git checkout -b main  # Ensure you're on a branch
+
       - name: Push changes
         run: |
            git config --global user.name "github-actions[bot]"
            git config --global user.email "github-actions[bot]@users.noreply.github.com"
            git commit -am "chore: format codebase" || echo "No changes to commit"
            git diff --quiet || git push
-           git push
         env:
           TOKEN: ${{ secrets.TOKEN }}
