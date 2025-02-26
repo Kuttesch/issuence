@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Extract version from tag
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
@@ -30,7 +30,7 @@ jobs:
           TOKEN: ${{ secrets.TOKEN }}
 
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js with pnpm
         run: |
           npm install -g pnpm
@@ -47,14 +47,14 @@ jobs:
           pnpm build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-build
           path: apps/backend/dist/
 
       - name: Create release
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v2
         env:
           TOKEN: ${{ secrets.TOKEN }}
         with:
