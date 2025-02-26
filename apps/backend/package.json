@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/main.js",
   "build": {

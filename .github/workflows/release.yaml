@@ -34,9 +34,12 @@ jobs:
       #     git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
 
       - name: Setup Node.js with pnpm
-        run: |
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+      - run: |
           npm install -g pnpm
-          pnpm install  
+          pnpm install
 
       - name: Build frontend (Svelte)
         run: |
