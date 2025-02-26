@@ -10,7 +10,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,8 +32,6 @@ jobs:
           git commit -am "chore: set version to $VERSION"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
       - name: Setup Node.js with pnpm
         run: |
           npm install -g pnpm
@@ -66,5 +64,3 @@ jobs:
           body_path: root/release_notes/${{ github.ref_name }}.md
           draft: ${{ endsWith(github.ref, 'rc') || endsWith(github.ref, 'dev') }}
           prerelease: ${{ endsWith(github.ref, 'rc') || endsWith(github.ref, 'dev') }}
-          
-
