@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [svelte()],
   base: '/issuence',
   build: {
-    outDir: 'docs', // Output to the 'docs' folder
+    outDir: 'dist', // Output to the 'docs' folder
   },
 })
