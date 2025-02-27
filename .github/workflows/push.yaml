@@ -10,10 +10,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
       - name: Setup Node.js with pnpm
-        run: |
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+      - run: |
           npm install -g pnpm
           pnpm install
 
@@ -21,9 +22,15 @@ jobs:
         run: |
           cd app/frontend
           pnpm prettier
+
       - name: Format backend
         run: |
           cd app/backend
+          pnpm prettier
+      
+      - name: Format website
+        run: |
+          cd website
           pnpm prettier
 
       - name: Checkout branch before pushing
@@ -38,14 +45,19 @@ jobs:
           git diff --quiet || git push
         env:
           TOKEN: ${{ secrets.TOKEN }}
+
   check:
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Setup Node.js with pnpm
-        run: |
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+      - run: |
           npm install -g pnpm
           pnpm install
 
@@ -66,9 +78,30 @@ jobs:
           BACKEND_PID=$!
           sleep 10
           kill $BACKEND_PID
+
+  check-website:
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js with pnpm
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+      - run: |
+          npm install -g pnpm
+          pnpm install
+
+      - name: Check website
+        run: |
+          cd website
+          pnpm check
+
   pages:
     runs-on: ubuntu-latest
-
+    needs: check-website
     steps:
       - uses: actions/checkout@v2
 
@@ -80,14 +113,13 @@ jobs:
           npm install -g pnpm
           pnpm install
 
-      - name: change directory
-        run: cd website
-
       - name: Install dependencies
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: |
+          cd website
+          pnpm build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

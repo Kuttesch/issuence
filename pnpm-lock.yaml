@@ -107,6 +107,10 @@ importers:
         version: 6.1.0(@types/node@22.13.3)(jiti@2.4.2)(lightningcss@1.29.1)(sass-embedded@1.85.0)
 
   website:
+    dependencies:
+      prettier:
+        specifier: ^3.5.1
+        version: 3.5.1
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.3
