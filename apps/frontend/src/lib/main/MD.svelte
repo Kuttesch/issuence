@@ -1,25 +1,94 @@
 <script lang="ts">
-    import { marked } from 'marked';
+    import { Carta, MarkdownEditor } from 'carta-md';
+    import { slash } from '@cartamd/plugin-slash';
+    import { code } from '@cartamd/plugin-code';
     import { frontendVariables } from '../store';
-    import { Button } from 'flowbite-svelte';
-    import { StoreOutline } from 'flowbite-svelte-icons';
+    // import '@cartamd/plugin-code/default.css';
+    import '../styles/theme.css';
+    import { loadHighlighter } from 'carta-md';
+    import { createEventDispatcher, onDestroy } from 'svelte';
 
-    let mdSource: string = '';
-    async function getIssueDescription() {
-        mdSource = $frontendVariables.currentIssue.description;
-        console.log(mdSource);
-    }
+    export let edit: boolean = false;
+    
+    let dispatcher = createEventDispatcher();
 
-    $: if ($frontendVariables.currentIssueId !== -1) {
-        getIssueDescription();
-    }
+    const customThemeSettings = [
+        {
+            scope: "markup.bold",
+            settings: { fontStyle: "bold", foreground: "#FACC15" }
+        },
+        {
+            scope: "markup.italic",
+            settings: { fontStyle: "italic", foreground: "#A78BFA" }
+        },
+        {
+            scope: "markup.inline",
+            settings: { foreground: "#F97316" }
+        },
+        {
+            scope: "markup.code",
+            settings: { background: "#FFFFFF", foreground: "#D1D5DB" }
+        },
+        {
+            scope: "markup.heading",
+            settings: { foreground: "#F59E0B" }
+        },
+        {
+            scope: "markup.list",
+            settings: { foreground: "#F59E0B" }
+        },
+        {
+            scope: "markup.quote",
+            settings: { foreground: "#F59E0B" }
+        }
+    ];
+
+    const carta = new Carta({
+        sanitizer(html) {
+            return html;
+        },
+        extensions: [
+            slash(),
+            code({
+                theme: 'carta-dark',
+            })
+        ],
+        shikiOptions: {
+            themes: ['material-theme-darker']
+        },
+    });
+
+    (async () => {
+        // Load the base theme using the loadHighlighter method
+        const highlighter = await loadHighlighter({
+            theme: 'material-theme-darker',
+            grammarRules: [],
+            highlightingRules: []
+        });
+
+        // Merge custom settings with the base theme
+        const baseTheme = highlighter.getTheme('material-theme-darker');
+        const mergedTheme = {
+            ...baseTheme,
+            settings: [
+                ...baseTheme.settings,
+                ...customThemeSettings
+            ]
+        };
+        highlighter.setTheme(mergedTheme);
+        carta.highlighter = async () => highlighter;
+    })();
+
+    onDestroy(() => {
+        dispatcher('saveCurrentIssue');
+    });
 
 </script>
 
-
-<div class="w-full min-h-[10vh] max-h-[40vh] h-auto text-lg text-text flex flex-col items-start justify-start pt-4">
-        {@html marked(mdSource)}
-        {@html marked(mdSource)}
-
-
+<div class="w-full min-h-[15vh] max-h-[40vh] h-auto text-lg text-text flex flex-col items-start justify-start pt-4">
+    {#if edit}
+        <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence" carta={carta} />
+    {:else}
+        <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence" selectedTab="preview" disableToolbar={true} carta={carta} />
+    {/if}
 </div>

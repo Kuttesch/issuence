@@ -1,7 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import DB from "./database";
-import { Issue } from "./data";
 import { format } from "url";
 
 let db: DB | null = null;
@@ -18,6 +17,7 @@ function createWindow() {
       contextIsolation: true, // Isolate renderer process from node.js
     },
     frame: false,
+    icon: path.join(__dirname, "/src/icon.png"),
   });
 
   const isDev = !app.isPackaged;
@@ -37,13 +37,13 @@ function createWindow() {
     });
   }
 }
-
 app.whenReady().then(async () => {
+  console.log("Initializing database");
   db = new DB();
   await db.initDB();
   // await db.createExampleData();
   console.log("Database initialized");
-  console.log(db.getListOfAllIssueNames());
+  console.log(await db.getListOfAllIssueNames());
   createWindow();
 });
 
@@ -55,6 +55,11 @@ app.on("window-all-closed", () => {
 
 // Example function to be called from the Svelte app
 function quitApp() {
+  if (db) {
+    db.saveDatabase();
+  } else {
+    console.error("Database not initialized");
+  }
   app.quit();
 }
 
@@ -135,16 +140,16 @@ ipcMain.handle("addIssue", async (event, issue) => {
   console.error("Database not initialized");
 });
 
-ipcMain.handle("saveIssue", async (event, issue) => {
+ipcMain.handle("removeIssue", async (event, id) => {
   if (db !== null) {
-    return await db.saveIssue(issue);
+    db.removeIssue(id);
   }
   console.error("Database not initialized");
 });
 
-ipcMain.handle("removeIssue", async (event, id) => {
+ipcMain.handle("saveIssue", async (event, issue) => {
   if (db !== null) {
-    db.removeIssue(id);
+    return await db.saveIssue(issue);
   }
   console.error("Database not initialized");
 });

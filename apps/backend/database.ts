@@ -1,4 +1,4 @@
-import { Issue } from "./data";
+import { Issue, Priority, Status } from "./data";
 import loki from "lokijs";
 
 console.log("Hello from database.ts");
@@ -9,23 +9,27 @@ export default class DB {
 
   constructor(file: string = "database.json") {
     this.db = new loki(file, { persistenceMethod: "fs" }); // Use file system for persistence
-    // this.issuesCollection = this.db.addCollection("issues"); // Create or access issues collection
   }
 
   public async initDB() {
     return new Promise<void>((resolve, reject) => {
-      this.db.loadDatabase({}, () => {
-        console.log("Database loaded");
-
-        this.issuesCollection = this.db.getCollection("issues");
-        if (!this.issuesCollection) {
-          this.issuesCollection = this.db.addCollection("issues");
-          this.createExampleData();
-          console.log("Database initialized with example data");
+      this.db.loadDatabase({}, (err) => {
+        if (err) {
+          console.error("Failed to load database:", err);
+          reject(err);
+        } else {
+          console.log("Database loaded successfully");
+          this.issuesCollection = this.db.getCollection("issues");
+          if (!this.issuesCollection) {
+            console.log("Creating issues collection");
+            this.issuesCollection = this.db.addCollection("issues");
+          }
+          if (this.issuesCollection.count() === 0) {
+            console.log("Creating example data");
+            this.createExampleData();
+          }
+          resolve();
         }
-
-        this.db.saveDatabase(); // Save changes
-        resolve();
       });
     });
   }
@@ -50,6 +54,7 @@ export default class DB {
   }
 
   public async getListOfAllIssueNames() {
+    console.log("Getting list of all issue names");
     const issues = this.issuesCollection.find();
     return issues.map((issue: Issue) => issue.title);
   }
@@ -77,15 +82,27 @@ export default class DB {
     }
   }
 
+  public getNewIssueID() {
+    return this.issuesCollection.count() + 1;
+  }
+
+  public async saveDatabase() {
+    this.db.saveDatabase();
+    console.log("Database saved");
+    return;
+  }
+
   public async createExampleData() {
+    console.log("Creating example data");
     this.db.removeCollection("issues");
+    this.issuesCollection = this.db.addCollection("issues");
     const exampleData = [
       {
         id: 1,
         title: "Example Issue",
         description: "This is an example issue",
-        priority: "low",
-        status: "open",
+        priority: Priority.LOW,
+        status: Status.OPEN,
         tags: ["example", "issue"],
         comments: [
           {
@@ -114,8 +131,8 @@ export default class DB {
         id: 2,
         title: "Another Example Issue",
         description: "## This is another example issue",
-        priority: "high",
-        status: "current",
+        priority: Priority.MEDIUM,
+        status: Status.CURRENT,
         tags: ["example", "issue"],
         comments: [
           {
@@ -144,8 +161,8 @@ export default class DB {
         id: 3,
         title: "Yet Another Example Issue",
         description: "### This is yet another example issue",
-        priority: "medium",
-        status: "done",
+        priority: Priority.HIGH,
+        status: Status.LATER,
         tags: ["example", "issue"],
         comments: [
           {
@@ -175,8 +192,8 @@ export default class DB {
         id: 4,
         title: "One More Example Issue",
         description: "This is one more example issue",
-        priority: "low",
-        status: "later",
+        priority: Priority.LOW,
+        status: Status.OPEN,
         tags: ["example", "issue"],
         comments: [
           {

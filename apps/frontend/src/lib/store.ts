@@ -1,22 +1,20 @@
 import { writable } from "svelte/store";
+import { Issue } from "../../data";
 
 export interface FrontendVariables {
   currentIssueId: number;
+  currentPage: number;
   currentIssue: Issue;
 }
 
-export const frontendVariables = writable<FrontendVariables>({
+const defaultFrontendVariables: FrontendVariables = {
   currentIssueId: 0,
-  currentIssue: {
-    id: 0,
-    title: "",
-    description: "",
-    priority: "low",
-    status: "open",
-    tags: [],
-    comments: [],
-    created: new Date(),
-    updated: null,
-    closed: null,
-  },
-});
+  currentPage: 0,
+  currentIssue: new Issue(),
+};
+
+export const frontendVariables = writable(defaultFrontendVariables);
+
+export function resetFrontendVariables() {
+  frontendVariables.set(defaultFrontendVariables);
+}

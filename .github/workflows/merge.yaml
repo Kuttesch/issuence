@@ -5,20 +5,36 @@ on:
     branches:
       - dev-main
       - main
+    tags:
+      - '*'
 
 jobs:
-    merge:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repository
-            uses: actions/checkout@v2
-          - name: Setup Node.js with pnpm
-            run: |
-              npm install -g pnpm
-              pnpm install  
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-          - name: Setup Node.js with pnpm
-            uses: ./.github/actions/setup-node
+      - name: Setup Node.js with pnpm
+        run: |
+          npm install -g pnpm
+          pnpm install  
+      
+      - name: Fix Electron sandbox permissions
+        run: sudo chown root:root node_modules/.pnpm/electron@*/node_modules/electron/dist/chrome-sandbox && sudo chmod 4755 node_modules/.pnpm/electron@*/node_modules/electron/dist/chrome-sandbox
 
-          - name: Check dev
-            run: pnpm --filter frontend dev && pnpm --filter backend dev
+      - name: Start frontend
+        run: |
+          pnpm --filter frontend dev &
+          FRONTEND_PID=$!
+          sleep 10
+          kill $FRONTEND_PID
+
+      - name: Start backend
+        run: |
+          pnpm --filter backend build-ts
+          xvfb-run --auto-servernum -- pnpm --filter backend start -- --no-sandbox &
+          BACKEND_PID=$!
+          sleep 10
+          kill $BACKEND_PID
+
