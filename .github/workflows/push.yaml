@@ -19,11 +19,11 @@ jobs:
 
       - name: Format frontend
         run: |
-           cd apps/frontend
+           cd app/frontend
            pnpm prettier
       - name: Format backend
         run: |
-           cd apps/backend
+           cd app/backend
            pnpm prettier
 
       - name: Checkout branch before pushing

@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  apps/backend:
+  app/backend:
     dependencies:
       '@types/lokijs':
         specifier: ^1.5.14
@@ -39,7 +39,7 @@ importers:
         specifier: ~5.7.3
         version: 5.7.3
 
-  apps/frontend:
+  app/frontend:
     dependencies:
       '@cartamd/plugin-code':
         specifier: ^4.0.6

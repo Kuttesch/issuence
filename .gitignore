@@ -24,10 +24,10 @@ dist-ssr
 *.sw?
 
 # frontend
-apps/frontend/node_modules
-apps/frontend/.vscode
+app/frontend/node_modules
+app/frontend/.vscode
 
 # backend
-apps/backend/node_modules
-apps/backend/dist
-apps/backend/public
+app/backend/node_modules
+app/backend/dist
+app/backend/public
