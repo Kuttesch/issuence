@@ -22,12 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# frontend
-app/frontend/node_modules
-app/frontend/.vscode
-
-# backend
-app/backend/node_modules
-app/backend/dist
-app/backend/public

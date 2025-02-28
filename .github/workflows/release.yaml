@@ -27,19 +27,19 @@ jobs:
 
       - name: Build frontend (Svelte)
         run: |
-          cd apps/frontend
+          cd app/frontend
           pnpm build
 
       - name: Build backend (Electron)
         run: |
-          cd apps/backend
+          cd app/backend
           pnpm build
 
       - name: Upload installer files as artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-installers
-          path: apps/backend/dist/*Installer*.exe
+          path: app/backend/dist/*Installer*.exe
 
       - name: Create release
         id: create_release
@@ -53,6 +53,6 @@ jobs:
       - name: Upload release installers to GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: apps/backend/dist/*Setup*.exe
+          files: app/backend/dist/*Setup*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

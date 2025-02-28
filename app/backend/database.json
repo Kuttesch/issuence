@@ -12,7 +12,7 @@
           "status": "OPEN",
           "tags": ["example", "issue"],
           "comments": [
-            { "id": 1, "text": "Cock", "created": "2025-02-15T21:01:48.948Z" }
+            { "id": 1, "text": "Test", "created": "2025-02-15T21:01:48.948Z" }
           ],
           "todoItems": [
             { "id": 2, "text": "ökjagds", "done": false },
@@ -50,7 +50,7 @@
             { "id": 7, "text": "s", "created": "2025-02-15T19:55:01.991Z" },
             { "id": 8, "text": "s", "created": "2025-02-15T19:55:02.912Z" }
           ],
-          "todoItems": [{ "id": 1, "text": "Cock", "done": false }],
+          "todoItems": [{ "id": 1, "text": "Test", "done": false }],
           "created": "2024-12-05T12:00:00.000Z",
           "updated": null,
           "closed": null,
@@ -155,7 +155,7 @@
           ],
           "todoItems": [
             { "id": 1, "text": "This is a todo item", "done": false },
-            { "id": 3, "text": "Cock", "done": false }
+            { "id": 3, "text": "Test", "done": false }
           ],
           "created": "2025-01-01T10:00:00.000Z",
           "updated": "2025-02-10T14:50:00.000Z",
@@ -176,7 +176,7 @@
           "status": "OPEN",
           "tags": [],
           "comments": [],
-          "todoItems": [{ "id": 1, "text": "Cock", "done": false }],
+          "todoItems": [{ "id": 1, "text": "Test", "done": false }],
           "created": "2025-02-15T20:58:43.585Z",
           "updated": null,
           "closed": null,

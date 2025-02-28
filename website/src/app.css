@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4029ea;
+  --color-secondary: #380fa5;
+  --color-accent: #7b26c1;
+  --color-background: #1c1c1c;
+  --color-background-secondary: #171616;
+  --color-success: #0da325;
+  --color-warning: #f8822b;
+  --color-danger: #e02028;
+  --color-text: #ffffff;
+  --drop-shadow-main: 0 0 100px #4029ea;
+  --drop-shadow-main-small: 0 0 40px #4029ea;
+  --drop-shadow-secondary: 0 0 30px #7b26c1;
+  --drop-shadow-secondary-small: 0 0 10px #7b26c1;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  text-align: center;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
