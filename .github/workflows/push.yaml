@@ -1,4 +1,4 @@
-name: Lint the codebase
+name: Push
 
 permissions:
   contents: write
