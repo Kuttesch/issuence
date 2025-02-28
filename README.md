@@ -14,7 +14,7 @@ With `Issuence` you split your tasks into smaller issues and manage them with ea
 Instead of having a miles long ToDo-list, you now can have a structured list of issues, featuring comments to quickly add notes or ideas.
 
 
-![img](./src/main.png)
+![img](./src/screenshot_main.png)
 
 
 To be continued...
