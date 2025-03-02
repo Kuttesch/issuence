@@ -9,9 +9,7 @@
 
 <div class="w-full min-h-[100vh] h-auto flex flex-col justify-center items-center gap-4 bg-background">
     <img src={icon} alt="Icon" class="w-auto h-40 drop-shadow-main" />
-    <div class="text-6xl text-center text-text drop-shadow-main">SomeText</div>
-    <div class="text-xl text-text">SomelongerText</div>
-
+    <div class="text-4xl text-center text-text drop-shadow-main">Start organizing your Life today!</div>
     <Button class="w-1/4 h-20 rounded-2xl flex flex-row justify-start items-center gap-4 p-4 m-16 drop-shadow-secondary bg-background-secondary transition-all duration-50 ease-in-out hover:scale-101 cursor-pointer focus:ring-0" on:click={() => openLink($downloadLink)}>
         <DownloadSolid class="h-full w-auto pt-2 pb-2"/>
         <div class="text-2xl">Download Issuence</div>
