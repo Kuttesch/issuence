@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Card } from "flowbite-svelte";
   import img from "../../public/screenshot_main.png"
 
 </script>
@@ -11,7 +10,7 @@
         <div class="w-1/2 h-[80vh] p-8 flex flex-col gap-6 text-left">
             <div class="text-2xl drop-shadow-main-small">Why Issuence?</div>
             <div class="text-lg leading-relaxed">
-                Managing tasks shouldn’t feel overwhelming. Traditional to-do lists quickly become long, cluttered, and difficult to track. 
+                Managing tasks should not feel overwhelming. Traditional to-do lists quickly become long, cluttered, and difficult to track. 
                 <span class="font-semibold text-text drop-shadow-main-small">Issuence</span> takes a different approach—helping you break down tasks into structured issues for better organization, clarity, and control.
             </div>
         
