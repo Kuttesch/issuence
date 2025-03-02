@@ -2,7 +2,7 @@
   import img from "../../public/screenshot_main.png"
 
 </script>
-<div class="w-full min-h-[100vh] h-auto flex flex-col justify-center items-center gap-4 bg-background-secondary">
+<div class="w-full min-h-[100vh] h-auto flex flex-col justify-center items-center gap-4 bg-background-secondary dark:bg-dark-background-secondary">
     <div class="w-full h-auto flex flex-row justify-start items-center">
         <div class="w-1/2 h-[80vh] p-8 flex justify-center items-center">
             <img src={img} alt="Screenshot" class="h-full max-w-full object-contain drop-shadow-main-small"/>
