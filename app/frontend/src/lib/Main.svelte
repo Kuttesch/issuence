@@ -51,7 +51,7 @@
 
 </script>
 <div id="scroll" class="w-3/4 min-w-170 h-full flex flex-col items-start justify-start overflow-y-scroll scrollbar-hide">
-    <div class="w-full h-auto bg-background-secondary rounded-2xl flex flex-col items-start justify-start p-12 gap-4">
+    <div class="w-full h-auto bg-background-secondary dark:bg-dark-background-secondary rounded-2xl flex flex-col items-start justify-start p-12 gap-4">
         <Header on:edit={edit} on:noEdit={noEdit} on:saveCurrentIssue={saveCurrentIssue}/>
         <MD edit={editBool} on:saveCurrentIssue={saveCurrentIssue}/>
         <TodoList on:saveCurrentIssue={saveCurrentIssue}/>

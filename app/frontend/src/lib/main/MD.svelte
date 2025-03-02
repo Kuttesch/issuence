@@ -9,10 +9,43 @@
     import { createEventDispatcher, onDestroy } from 'svelte';
 
     export let edit: boolean = false;
-    
+
+    let isDark = false;
     let dispatcher = createEventDispatcher();
 
     const customThemeSettings = [
+        {
+            scope: "markup.bold",
+            settings: { fontStyle: "bold", foreground: "#FACC15" }
+        },
+        {
+            scope: "markup.italic",
+            settings: { fontStyle: "italic", foreground: "#A78BFA" }
+        },
+        {
+            scope: "markup.inline",
+            settings: { foreground: "#F97316" }
+        },
+        {
+            scope: "markup.code",
+            settings: { background: "#FFFFFF", foreground: "#D1D5DB" }
+        },
+        {
+            scope: "markup.heading",
+            settings: { foreground: "#F59E0B" }
+        },
+        {
+            scope: "markup.list",
+            settings: { foreground: "#F59E0B" }
+        },
+        {
+            scope: "markup.quote",
+            settings: { foreground: "#F59E0B" }
+        }
+    ];
+
+    
+    const customThemeSettingsDark = [
         {
             scope: "markup.bold",
             settings: { fontStyle: "bold", foreground: "#FACC15" }
@@ -83,9 +116,11 @@
         dispatcher('saveCurrentIssue');
     });
 
+    $: isDark = $frontendVariables.isDark;
+
 </script>
 
-<div class="w-full min-h-[15vh] max-h-[40vh] h-auto text-lg text-text flex flex-col items-start justify-start pt-4">
+<div class="w-full min-h-[15vh] max-h-[40vh] h-auto text-lg text-text dark:text-dark-text flex flex-col items-start justify-start pt-4">
     {#if edit}
         <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence" carta={carta} />
     {:else}

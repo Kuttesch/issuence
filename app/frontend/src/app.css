@@ -14,7 +14,7 @@
 
   --color-dark-primary: #4029ea;
   --color-dark-secondary: #380fa5;
-  --color-dark-accent: #7b26c1;
+  --color-dark-accent: #FF0000;
   --color-dark-background: #1c1c1c;
   --color-dark-background-secondary: #171616;
   --color-dark-text: #ffffff;
@@ -30,6 +30,33 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  --color-primary-css: var(--color-primary);
+  --color-secondary-css: var(--color-secondary);
+  --color-accent-css: var(--color-accent);
+  --color-background-css: var(--color-background);
+  --color-background-secondary-css: var(--color-background-secondary);
+  --color-text-css: var(--color-text);
+  --drop-shadow-main-css: var(--drop-shadow-main);
+  --drop-shadow-main-small-css: var(--drop-shadow-main-small);
+  --drop-shadow-secondary-css: var(--drop-shadow-secondary);
+  --drop-shadow-secondary-small-css: var(--drop-shadow-secondary-small);
+}
+
+body.dark {
+  --color-primary-css: var(--color-dark-primary);
+  --color-secondary-css: var(--color-dark-secondary);
+  --color-accent-css: var(--color-dark-accent);
+  --color-background-css: var(--color-dark-background);
+  --color-background-secondary-css: var(--color-dark-background-secondary);
+  --color-text-css: var(--color-dark-text);
+  --drop-shadow-main-css: var(--drop-shadow-dark-main);
+  --drop-shadow-main-small-css: var(--drop-shadow-dark-main-small);
+  --drop-shadow-secondary-css: var(--drop-shadow-dark-secondary);
+  --drop-shadow-secondary-small-css: var(--drop-shadow-dark-secondary-small);
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -89,4 +116,12 @@ h1 {
 
 .no-drag {
   -webkit-app-region: no-drag;
+}
+
+.no-select {
+  -webkit-user-select: none;
+}
+
+.select {
+  -webkit-user-select: text;
 }
