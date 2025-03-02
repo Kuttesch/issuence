@@ -5,8 +5,12 @@
   --color-secondary: #380fa5;
   --color-accent: #7b26c1;
   --color-background: #FFFFFF;
-  --color-background-secondary: #FFFFFF;
+  --color-background-secondary: #e8e8e8;
   --color-text: #000000;
+  --drop-shadow-main: 0 0 100px #4029ea;
+  --drop-shadow-main-small: 0 0 40px #4029ea;
+  --drop-shadow-secondary: 0 0 30px #7b26c1;
+  --drop-shadow-secondary-small: 0 0 10px #7b26c1;
 
   --color-dark-primary: #4029ea;
   --color-dark-secondary: #380fa5;
@@ -14,20 +18,20 @@
   --color-dark-background: #1c1c1c;
   --color-dark-background-secondary: #171616;
   --color-dark-text: #ffffff;
+  --drop-shadow-dark-main: 0 0 100px #4029ea;
+  --drop-shadow-dark-main-small: 0 0 40px #4029ea;
+  --drop-shadow-dark-secondary: 0 0 30px #7b26c1;
+  --drop-shadow-dark-secondary-small: 0 0 10px #7b26c1;
 
   --color-success: #0da325;
   --color-warning: #f8822b;
   --color-danger: #e02028;
-  --drop-shadow-main: 0 0 100px #4029ea;
-  --drop-shadow-main-small: 0 0 40px #4029ea;
-  --drop-shadow-secondary: 0 0 30px #7b26c1;
-  --drop-shadow-secondary-small: 0 0 10px #7b26c1;
+
 }
 
-html {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -62,13 +66,21 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
+} */
 
-#app {
+/* #app {
   text-align: center;
-}
+} */
 
 .scrollbar-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.user-select-none {
+  user-select: none;
+}
+
+.user-select {
+  user-select: text;
 }
