@@ -23,7 +23,7 @@
 </script>
 
 <div class="w-full h-[100vh] flex flex-col justify-center items-center gap-4">
-    <img src={icon} alt="Icon" class="w-auto h-20 drop-shadow-main" />
-    <div class="text-6xl text-center text-text drop-shadow-main">Welcome to Issuence</div>
-    <div class="text-xl text-text">{slogan}</div>
+    <img src={icon} alt="Icon" class="w-auto h-20 drop-shadow-main-small dark:drop-shadow-dark-main" />
+    <div class="text-6xl text-center text-text dark:text-dark-text drop-shadow-main dark:drop-shadow-dark-main">Welcome to Issuence</div>
+    <div class="text-xl text-text dark:text-dark-text">{slogan}</div>
   </div>
