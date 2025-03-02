@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Button } from 'flowbite-svelte';
+    import { Button, DarkMode } from 'flowbite-svelte';
     import { CloseOutline, ExpandOutline, MinimizeOutline, DotsHorizontalOutline, BarsOutline } from 'flowbite-svelte-icons';
     import icon from '../assets/icon.png';
     import { frontendVariables } from './store';
@@ -54,5 +54,6 @@
         <Button on:click={minimizeApp} class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent">
             <DotsHorizontalOutline class="h-6 w-6" />
         </Button>
+        <DarkMode class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent"/>
     </div>
 </div>
