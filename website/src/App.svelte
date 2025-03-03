@@ -35,5 +35,7 @@
   <Why />
 
   <Download />
-  <Footer />
+  <!-- {#if !window.matchMedia("(max-width: 768px)").matches}
+    <Footer />
+  {/if} -->
 </div>
