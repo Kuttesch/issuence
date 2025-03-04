@@ -19,7 +19,6 @@
     async function deleteTodo() {
         dispatcher('deleteTodo', id);
     }
-    console.log("todoIndex: ", todoIndex);
 </script>
 {#if $frontendVariables.currentIssue.todoItems[todoIndex]}
 <div class="w-full h-7 flex flex-col items-start justify-start m-2" on:mouseenter={() => todoHovered = true} on:mouseleave={() => todoHovered = false} role="button" tabindex="0">
@@ -27,7 +26,7 @@
         <Button class="w-10 !p-2 !m-2 focus: ring-transparent" on:click={handlePress}>
             <div class="h-4 w-4 rounded-[100%] outline-2 outline-text dark:outline-dark-text flex items-center justify-center">
                 {#if $frontendVariables.currentIssue.todoItems[todoIndex].done}
-                <CheckOutline class="w-full h-full "/>
+                <CheckOutline class="w-full h-full text-text dark:text-dark-text"/>
                 {/if}
             </div>
         </Button>

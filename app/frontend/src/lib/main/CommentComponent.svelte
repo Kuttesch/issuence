@@ -4,6 +4,7 @@
     import { frontendVariables } from "../store";
     import { Button } from "flowbite-svelte";
     import { createEventDispatcher } from "svelte";
+    import { options } from "marked";
 
     let dispatcher = createEventDispatcher();
 
@@ -20,7 +21,7 @@
             if (date.toLocaleDateString() === new Date().toLocaleDateString()) {
                 console.log(date.toLocaleDateString());
                 console.log(new Date().toLocaleDateString());
-                return date.toLocaleTimeString();
+                return date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
             } else {
                 return date.toLocaleDateString();
             }

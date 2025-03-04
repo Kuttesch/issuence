@@ -65,19 +65,19 @@
             <div class="min-w-25 w-1/4 h-full flex flex-row items-center justify-start ">
                 {#if $frontendVariables.currentIssue.status === Status.OPEN}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.LATER)}>
-                        <Badge color="green" class="text-xs text-text dark:text-dark-text w-20 aspect-[2/1]" rounded>open</Badge>
+                        <Badge  class="bg-success text-xs dark:text-dark-text w-20 aspect-[2/1]" rounded>open</Badge>
                     </Button>
                 {:else if $frontendVariables.currentIssue.status === Status.LATER}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.CURRENT)}>
-                        <Badge color="blue" class="text-xs text-text dark:text-dark-text w-20 aspect-[2/1]" rounded>later</Badge>
+                        <Badge class="bg-secondary text-xs dark:text-dark-text w-20 aspect-[2/1]" rounded>later</Badge>
                     </Button>
                 {:else if $frontendVariables.currentIssue.status === Status.CURRENT}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.DONE)}>
-                        <Badge color="indigo" class="text-xs text-text dark:text-dark-text w-20 aspect-[2/1]" rounded>current</Badge>
+                        <Badge class="bg-primary text-xs dark:text-dark-text w-20 aspect-[2/1]" rounded>current</Badge>
                     </Button>
                 {:else if $frontendVariables.currentIssue.status === Status.DONE}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.OPEN)}>
-                        <Badge color="red" class="text-xs text-text dark:text-dark-text w-20 aspect-[2/1]" rounded>done</Badge>
+                        <Badge class="bg-danger text-xs text-dark-text w-20 aspect-[2/1]" rounded>done</Badge>
                     </Button>
                 {/if}
             </div>

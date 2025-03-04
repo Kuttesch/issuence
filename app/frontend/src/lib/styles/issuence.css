@@ -110,14 +110,14 @@
 }
 
 .carta-input {
-  min-height: 15vh;
+  min-height: 10vh;
   max-height: 40vh;
   overflow: auto;
   text-align: left;
 }
 
 .carta-renderer {
-  min-height: 15vh;
+  min-height: 10vh;
   max-height: 40vh;
   overflow: auto;
   text-align: left;
