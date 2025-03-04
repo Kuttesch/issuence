@@ -3,7 +3,7 @@
     import { CloseOutline, ExpandOutline, MinimizeOutline, DotsHorizontalOutline, BarsOutline } from 'flowbite-svelte-icons';
     import icon from '../assets/icon.png';
     import { frontendVariables, theme } from './store';
-    // import { ToogleTheme } from './main/ToogleTheme.svelte';
+    import ToggleTheme from './main/ToggleTheme.svelte';
 
     let maximized: boolean = false;
     console.log(window.electron);
@@ -64,7 +64,7 @@
         <Button on:click={minimizeApp} class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent">
             <DotsHorizontalOutline class="h-6 w-6 text-text dark:text-dark-text" />
         </Button>
-        <DarkMode class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent"/>
-        <!-- <ToogleTheme class="h-10 w-15 no-drag hover:scale-110 focus: ring-transparent" /> -->
+        <!-- <DarkMode class="h-10 ml-2 mr-2 no-drag hover:scale-110 focus: ring-transparent  bg-transparent hover:bg-transparent hover:dark:bg-transparent"/> -->
+        <ToggleTheme class="h-10 w-15 no-drag hover:scale-110" />
     </div>
 </div>
