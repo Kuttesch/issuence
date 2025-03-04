@@ -14,7 +14,7 @@
 
   --color-dark-primary: #4029ea;
   --color-dark-secondary: #380fa5;
-  --color-dark-accent: #FF0000;
+  --color-dark-accent: #7b26c1;
   --color-dark-background: #1c1c1c;
   --color-dark-background-secondary: #171616;
   --color-dark-text: #ffffff;
@@ -31,7 +31,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-body {
+/* body {
   --color-primary-css: var(--color-primary);
   --color-secondary-css: var(--color-secondary);
   --color-accent-css: var(--color-accent);
@@ -55,7 +55,7 @@ body.dark {
   --drop-shadow-main-small-css: var(--drop-shadow-dark-main-small);
   --drop-shadow-secondary-css: var(--drop-shadow-dark-secondary);
   --drop-shadow-secondary-small-css: var(--drop-shadow-dark-secondary-small);
-}
+} */
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
