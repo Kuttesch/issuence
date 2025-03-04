@@ -1,0 +1,226 @@
+@import "../../app.css";
+
+/*#### Dark #####*/
+
+.carta-theme__issuence-dark {
+  background-color: var(--color-dark-background);
+  color: var(--color-dark-text) !important;
+  caret-color: var(--color-dark-text) !important;
+}
+
+.carta-theme__issuence-dark .shiki span{
+  color: var(--color-dark-text);
+}
+
+.carta-theme__issuence-dark,
+.carta-theme__issuence-dark .carta-toolbar-left .carta-active {
+  background-color: var(--color-dark-background);
+}
+
+.carta-theme__issuence-dark .carta-toolbar-left button,
+.carta-theme__issuence-dark .carta-toolbar-right,
+.carta-theme__issuence-dark .carta-filler,
+.carta-theme__issuence-dark .carta-icons-menu,
+.carta-theme__issuence-dark .carta-slash {
+  background-color: var(--color-dark-background-secondary);
+}
+
+.carta-theme__issuence-dark .carta-toolbar .carta-icon:hover,
+.carta-theme__issuence-dark .carta-icons-menu .carta-icon-full:hover,
+.carta-theme__issuence-dark .carta-slash button.carta-active,
+.carta-theme__issuence-dark .carta-slash button:hover {
+  background-color: var(--color-dark-accent);
+}
+
+.carta-theme__issuence-dark .carta-toolbar-left .carta-active {
+  border-bottom: 1px solid var(--color-dark-background);
+  border-right: 1px solid var(--color-dark-background-secondary);
+}
+
+.carta-theme__issuence-dark
+  .carta-toolbar-left
+  .carta-active:not(:first-child) {
+  border-left: 1px solid var(--color-dark-background-secondary);
+}
+
+.carta-theme__issuence-dark .carta-slash {
+  border-color: var(--color-dark-accent);
+}
+
+.carta-theme__issuence-dark {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+/*##### Light #####*/
+
+.carta-theme__issuence-light {
+  background-color: var(--color-background);
+  color: var(--color-text) !important;
+  caret-color: var(--color-text) !important;
+}
+
+.carta-theme__issuence-light,
+.carta-theme__issuence-light .carta-toolbar-left .carta-active {
+  background-color: var(--color-background);
+}
+
+.carta-theme__issuence-light .carta-toolbar-left button,
+.carta-theme__issuence-light .carta-toolbar-right,
+.carta-theme__issuence-light .carta-filler,
+.carta-theme__issuence-light .carta-icons-menu,
+.carta-theme__issuence-light .carta-slash {
+  background-color: var(--color-background-secondary);
+}
+
+.carta-theme__issuence-light .carta-toolbar .carta-icon:hover,
+.carta-theme__issuence-light .carta-icons-menu .carta-icon-full:hover,
+.carta-theme__issuence-light .carta-slash button.carta-active,
+.carta-theme__issuence-light .carta-slash button:hover {
+  background-color: var(--color-accent);
+}
+
+.carta-theme__issuence-light .carta-toolbar-left .carta-active {
+  border-bottom: 1px solid var(--color-background);
+  border-right: 1px solid var(--color-background-secondary);
+}
+
+.carta-theme__issuence-light
+  .carta-toolbar-left
+  .carta-active:not(:first-child) {
+  border-left: 1px solid var(--color-background-secondary);
+}
+
+.carta-theme__issuence-light .carta-slash {
+  border-color: var(--color-accent);
+}
+
+.carta-theme__issuence-light {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+/*##### General #####*/
+
+.carta-wrapper {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.carta-input {
+  min-height: 15vh;
+  max-height: 40vh;
+  overflow: auto;
+  text-align: left;
+}
+
+.carta-renderer {
+  min-height: 15vh;
+  max-height: 40vh;
+  overflow: auto;
+  text-align: left;
+}
+
+.carta-font-code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1rem;
+}
+
+.carta-toolbar {
+  height: 2.5rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.carta-toolbar .carta-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.carta-toolbar-left > *:first-child {
+  border-top-left-radius: 1rem;
+}
+
+.carta-toolbar-left > * {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.95rem;
+}
+
+.carta-toolbar-left button {
+  height: 100%;
+}
+
+.carta-toolbar-right {
+  padding-right: 12px;
+}
+
+.carta-icons-menu {
+  padding: 8px;
+  border-radius: 1rem;
+  min-width: 180px;
+}
+
+.carta-icons-menu .carta-icon-full {
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-top: 2px;
+}
+
+.carta-icons-menu .carta-icon-full:first-child {
+  margin-top: 0;
+}
+
+.carta-icons-menu .carta-icon-full span {
+  margin-left: 6px;
+  font-size: 0.85rem;
+}
+
+/* Slash Plugin */
+.carta-slash {
+  width: 18rem;
+  max-height: 14rem;
+  overflow-y: scroll;
+  border-radius: 4px;
+  font-family: inherit;
+  padding: 6px;
+  scroll-padding: 6px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carta-slash span {
+  width: fit-content;
+}
+
+.carta-slash button {
+  background: none;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 4px;
+  text-align: left !important;
+}
+
+.carta-slash .carta-slash-group {
+  padding: 0 4px 0 4px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+}
+
+.carta-slash button.carta-active,
+.carta-slash button:hover {
+  cursor: pointer;
+}
+
+.carta-slash .carta-snippet-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.carta-slash .carta-snippet-description {
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+}
