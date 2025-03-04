@@ -36,10 +36,10 @@
 </script>
 
 <div class="w-full h-auto rounded-2xl flex flex-col items-start justify-start pt-4 pb-4 p-2 mt-2 mb-2">
-    <div class="text-2xl text-text font-bold">Comments</div>
+    <div class="text-2xl text-text dark:text-dark-text font-bold">Comments</div>
         <Timeline>
             {#if $frontendVariables.currentIssue.comments.length === 0}
-                <div class="text-text">No comments yet ...</div>
+                <div class="text-text dark:text-dark-text">No comments yet ...</div>
             {:else}
                 {#each $frontendVariables.currentIssue.comments as comment}
                     <CommentComponent id={comment.id} on:deleteComment={handleDeleteComment} />
@@ -49,8 +49,8 @@
 </div>
 <Hr />
 <div class="w-full h-auto flex flex-col items-start justify-start">
-    <div class="w-full h-auto flex items-center justify-start bg-background rounded-2xl p-2">
-        <Input type="text" color="" class="w-full min-h-20 rounded-2xl text-text text-lg font-normal p-2 hover: outline-0" placeholder="Add a comment..." bind:value={newText} on:keydown={handleKeyPress} />
-        <Button class="w-20 h-12 bg-primary text-text text-lg font-bold rounded-xl hover:scale-110 focus: ring-transparent" on:click={addComment} >Add</Button>
+    <div class="w-full h-auto flex items-center justify-start bg-background dark:bg-dark-background rounded-2xl p-2">
+        <Input type="text" color="" class="w-full min-h-20 rounded-2xl text-text dark:text-dark-text text-lg font-normal p-2 hover: outline-0" placeholder="Add a comment..." bind:value={newText} on:keydown={handleKeyPress} />
+        <Button class="w-20 h-12 bg-primary text-dark-text text-lg font-bold rounded-xl hover:scale-110 focus: ring-transparent" on:click={addComment} >Add</Button>
     </div>
 </div>

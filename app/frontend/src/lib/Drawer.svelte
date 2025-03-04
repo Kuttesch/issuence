@@ -21,7 +21,7 @@
 
 <div class="ease-in-out h-full" style="width: {$sidebarWidth}px;" on:mouseleave={handleMouseleave} role="button" tabindex="0">
     <div class="ease-in-out h-full" style="width: {width}px; transform: translateX({$x}px);" on:mouseleave={handleMouseleave} role="button" tabindex="0">
-    <div class="ease-in-out overflow-y-scroll h-full scrollbar-hide bg-background-secondary rounded-r-2xl">
+    <div class="ease-in-out overflow-y-scroll h-full scrollbar-hide bg-background-secondary dark:bg-dark-background-secondary rounded-r-2xl">
         <div class="h-12"></div>
             <div class="h-fullshadow-lg flex flex-col items-center justify-start">
                 <slot></slot>

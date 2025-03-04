@@ -13,6 +13,7 @@ const defaultFrontendVariables: FrontendVariables = {
   currentIssue: new Issue(),
 };
 
+export const theme = writable<"light" | "dark">("light");
 export const frontendVariables = writable(defaultFrontendVariables);
 
 export function resetFrontendVariables() {
