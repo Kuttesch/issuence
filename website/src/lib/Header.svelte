@@ -18,5 +18,5 @@
     <Button      class="hidden md:block text-text dark:text-dark-text text-lg p-4 pt-2 pb-2 hover:scale-110 cursor-pointer focus:ring-0" on:click={() => openLink($downloadLink)}>Download</Button>
     <GithubSolid class="text-text dark:text-dark-text h-full w-auto p-4 pt-2 pb-2 hover:scale-110 cursor-pointer" onclick={() => openLink("https://www.github.com/Kuttesch/Issuence")} />
     <!-- <DarkMode    class="text-text dark:text-dark-text h-full w-auto p-4 pt-2 pb-2 hover:scale-110 cursor-pointer bg-transparent hover:bg-transparent hover:dark:bg-transparent" /> -->
-    <ToggleTheme class="h-10 w-15 no-drag hover:scale-110" />
+    <ToggleTheme/>
 </div>
