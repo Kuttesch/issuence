@@ -102,6 +102,6 @@
     </div>
 <!-- Edit -->
     <div class="w-1/7 h-full flex flex-row-reverse items-center justify-start">
-            <Button class="w-20 h-12 bg-primary dark:bg-dark-primary text-text dark:text-dark-text text-lg font-bold rounded-xl hover:scale-110 focus: ring-transparent" on:click={switchEdit}> Edit </Button>
+            <Button class="w-20 h-12 bg-primary text-dark-text text-lg font-bold rounded-xl hover:scale-110 focus: ring-transparent" on:click={switchEdit}> Edit </Button>
     </div>
 </div>
