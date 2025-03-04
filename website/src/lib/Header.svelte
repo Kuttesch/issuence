@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { Button, P, DarkMode } from "flowbite-svelte";
+    import { Button, P} from "flowbite-svelte";
     import icon from "../assets/icon.png";
     import { GithubSolid } from "flowbite-svelte-icons";
     import { downloadLink } from "../stores";
+    import ToggleTheme from "./ToggleTheme.svelte";
     const openLink = (url: string) => window.open(url, "_blank", "noopener,noreferrer");
 </script>
 
