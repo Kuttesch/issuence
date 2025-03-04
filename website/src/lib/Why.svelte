@@ -1,11 +1,17 @@
 <script lang="ts">
-    import img from "../../public/screenshot_main.png"
-  
+    import img_dark from "../../public/screenshot_main_dark.png"
+    import img_light from "../../public/screenshot_main_light.png"
+    import {theme} from "../stores"
+
   </script>
   <div class="w-full min-h-[110vh] h-auto flex flex-col justify-center items-center gap-4 bg-background-secondary dark:bg-dark-background-secondary">
       <div class="w-full h-auto flex justify-start items-center flex-col md:flex-row">
           <div class="md:w-1/2 w-full md:h-[80vh] h-auto p-8 flex justify-center items-center">
-              <img src={img} alt="Screenshot" class="h-full max-w-full object-contain drop-shadow-main dark:drop-shadow-dark-main-small"/>
+                {#if $theme === "dark"}
+                    <img src={img_dark} alt="Screenshot" class="h-full max-w-full object-contain drop-shadow-main dark:drop-shadow-dark-main-small"/>
+                {:else}
+                    <img src={img_light} alt="Screenshot" class="h-full max-w-full object-contain drop-shadow-main dark:drop-shadow-dark-main-small"/>
+                {/if}
           </div>
           <div class="md:w-1/2 w-full h-auto p-8 flex flex-col gap-6 text-left">
               <div class="text-2xl text-text dark:text-dark-text drop-shadow-main dark:drop-shadow-dark-main-small">Why Issuence?</div>
