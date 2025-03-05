@@ -10,14 +10,9 @@ declare global {
         minimizeWindow: () => Promise<void>;
       };
       database: {
+        getAllIssues: () => Promise<[{ id: number; name: string }]>;
         getIssue: (id: number) => Promise<Issue>;
-        getNumberOfIssues: () => Promise<number>;
-        getListOfAllIssueNames: () => Promise<string[]>;
-        getNameOfIssue: (id: number) => Promise<string>;
-        getIdOfIssue: (name: string) => Promise<number>;
-        addIssue: (issue: Issue) => Promise<void>;
         saveIssue: (issue: Issue) => Promise<void>;
-        removeIssue: (id: number) => Promise<void>;
       };
     };
   }
