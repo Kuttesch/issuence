@@ -1,7 +1,7 @@
 <script lang="ts">
     import MD from "./MD.svelte";
     import { Badge, Button, Input } from "flowbite-svelte";
-    import { frontendVariables } from "../store";
+    import { currentIssue } from "../store";
     import { CalendarEditOutline, CalendarWeekOutline, ClockOutline, EditOutline, EditSolid, TruckClockOutline, UserEditOutline } from "flowbite-svelte-icons";
     import { Status } from "../../../data";
     import { createEventDispatcher } from "svelte";
@@ -33,18 +33,15 @@
     }
 
     async function clickBadge(status: Status) {
-        $frontendVariables.currentIssue.status = status;
-        dispatcher('saveCurrentIssue');
+        $currentIssue.status = status;
     }
 
     function switchEdit() {
         edit = !edit;
         if (edit) {
             dispatcher('edit');
-            dispatcher('saveCurrentIssue');
         } else {
             dispatcher('noEdit');
-            dispatcher('saveCurrentIssue');
         }
     }
 
@@ -55,27 +52,27 @@
     <div class="w-6/7 h-full text-2xl font-bold flex flex-col items-start justify-start     ">
 <!-- Title -->
         {#if edit}
-            <Input color="" class="w-5/5 h-1/2 text-text dark:text-dark-text text-3xl font-bold flex flex-row items-center justify-start p-0  hover: outline-0" placeholder="Title" bind:value={$frontendVariables.currentIssue.title} />
+            <Input color="" class="w-5/5 h-1/2 text-text dark:text-dark-text text-3xl font-bold flex flex-row items-center justify-start p-0  hover: outline-0" placeholder="Title" bind:value={$currentIssue.title} />
         {:else}
             <div class="w-5/5 h-1/2 text-text dark:text-dark-text text-3xl font-bold flex flex-row items-center justify-start ">
-                {$frontendVariables.currentIssue.title}
+                {$currentIssue.title}
             </div>
         {/if}
         <div class="w-2/5 h-1/2 font-bold flex flex-row items-start justify-start ">
             <div class="min-w-25 w-1/4 h-full flex flex-row items-center justify-start ">
-                {#if $frontendVariables.currentIssue.status === Status.OPEN}
+                {#if $currentIssue.status === Status.OPEN}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.LATER)}>
                         <Badge  class="bg-success text-xs dark:text-dark-text w-20 aspect-[2/1]" rounded>open</Badge>
                     </Button>
-                {:else if $frontendVariables.currentIssue.status === Status.LATER}
+                {:else if $currentIssue.status === Status.LATER}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.CURRENT)}>
                         <Badge class="bg-secondary text-xs dark:text-dark-text w-20 aspect-[2/1]" rounded>later</Badge>
                     </Button>
-                {:else if $frontendVariables.currentIssue.status === Status.CURRENT}
+                {:else if $currentIssue.status === Status.CURRENT}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.DONE)}>
                         <Badge class="bg-primary text-xs dark:text-dark-text w-20 aspect-[2/1]" rounded>current</Badge>
                     </Button>
-                {:else if $frontendVariables.currentIssue.status === Status.DONE}
+                {:else if $currentIssue.status === Status.DONE}
                     <Button class="focus: ring-transparent p-0 m-0" on:click={() => clickBadge(Status.OPEN)}>
                         <Badge class="bg-danger text-xs text-dark-text w-20 aspect-[2/1]" rounded>done</Badge>
                     </Button>
@@ -83,7 +80,7 @@
             </div>
 <!-- Date -->
             <div class="w-3/4 h-full flex flex-row items-center justify-start">
-                {#if $frontendVariables.currentIssue.updated !== null}
+                {#if $currentIssue.updated !== null}
                     {#if timeDate}
                     <UserEditOutline class="w-7 h-full mr-2 text-text dark:text-dark-text"/>
                     {:else}
@@ -96,7 +93,7 @@
                         <CalendarWeekOutline class="w-7 h-full mr-2 text-text dark:text-dark-text"/>
                     {/if}
                 {/if}
-                <div class="text-text dark:text-dark-text text-lg font-normal">{formatDate($frontendVariables.currentIssue.updated ?? $frontendVariables.currentIssue.created)}</div> <!--!TODO Styling-->
+                <div class="text-text dark:text-dark-text text-lg font-normal">{formatDate($currentIssue.updated ?? $currentIssue.created)}</div> <!--!TODO Styling-->
             </div>
         </div>
     </div>

@@ -2,15 +2,11 @@
     import { Carta, MarkdownEditor } from 'carta-md';
     import { slash } from '@cartamd/plugin-slash';
     import { code } from '@cartamd/plugin-code';
-    import { frontendVariables, theme } from '../store';
-    // import '@cartamd/plugin-code/default.css';
+    import { currentIssue, theme } from '../store';
     import '../styles/issuence.css';
     import { loadHighlighter } from 'carta-md';
-    import { createEventDispatcher, onDestroy } from 'svelte';
 
     export let edit: boolean = false;
-
-    let dispatcher = createEventDispatcher();
 
     const customThemeSettings = [
         {
@@ -79,11 +75,6 @@
         carta.highlighter = async () => highlighter;
     }
 
-
-    onDestroy(() => {
-        dispatcher('saveCurrentIssue');
-    });
-
     $: {
         theme.subscribe(value => {
             updateHighlighter(value);
@@ -95,11 +86,11 @@
 <div class="w-full min-h-[15vh] max-h-[40vh] h-auto text-lg text-text dark:text-dark-text flex flex-col items-start justify-start pt-4">
     {#if edit}
         {#if $theme === 'dark'}
-            <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence-dark" carta={carta} />
+            <MarkdownEditor bind:value={$currentIssue.description} mode="tabs" theme="issuence-dark" carta={carta} />
         {:else}
-            <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence-light" carta={carta} />
+            <MarkdownEditor bind:value={$currentIssue.description} mode="tabs" theme="issuence-light" carta={carta} />
         {/if}
     {:else}
-        <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence-{$theme}" selectedTab="preview" disableToolbar={true} carta={carta} />
+        <MarkdownEditor bind:value={$currentIssue.description} mode="tabs" theme="issuence-{$theme}" selectedTab="preview" disableToolbar={true} carta={carta} />
     {/if}
 </div>

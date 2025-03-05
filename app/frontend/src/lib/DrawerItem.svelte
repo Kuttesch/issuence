@@ -1,12 +1,12 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-  import { frontendVariables, resetFrontendVariables } from "./store";
 
     export let name: string = '';
+    export let id: number = 0;
 
     const dispatcher = createEventDispatcher();
     async function handleClick() {
-        dispatcher('switchIssue', name);
+        dispatcher('switchIssue', id);
     }
 
 </script>

@@ -5,30 +5,17 @@
   import Titlebar from "./lib/Titlebar.svelte";
   import { onDestroy, onMount } from "svelte";
   import DrawerItem from "./lib/DrawerItem.svelte";
-  import { frontendVariables } from "./lib/store";
+  import { allIssues, currentPage, initStore, loadIssue } from "./lib/store";
   import Start from "./lib/Start.svelte";
+  import { Issue } from "../data";
 
   let hoverDiv: HTMLDivElement | null = null;
   let drawerDisabled: boolean = true;
   let drawerAlways: boolean = false;
-  let issueNames: string[] = [];
-  let loadNewIssue: (issueName?: string) => Promise<void> = async () => {
-    console.log("New Issue");
-  };
 
-  async function handleSwitchIssue(event: CustomEvent<string>) {
-    $frontendVariables.currentPage = 1;
-    if (loadNewIssue) {
-      await loadNewIssue(event.detail); // Await the async function
-    }
-  }
-
-  async function loadIssues() {
-    issueNames = await window.electron.database.getListOfAllIssueNames();
-  }
-
-  $: if (!drawerDisabled) {
-    loadIssues();
+  async function handleSwitchIssue(event: CustomEvent<number>) {
+    $currentPage = 1;
+    await loadIssue(event.detail);
   }
 
   $: if (drawerAlways) {
@@ -57,8 +44,9 @@
     }
   }
 
-  onMount(() => {
+  onMount(async () => {
     window.addEventListener("keydown", handleKeydown);
+    await initStore();
   });
 
   onDestroy(() => {
@@ -76,16 +64,16 @@
 ></div>
 <div class="w-screen h-screen flex flex-row items-center justify-center">
   <Drawer hidden={drawerDisabled} on:onmouseleave={() => switchDrawer(true)}>
-    {#each issueNames as name, index}
-      <DrawerItem name={name} on:switchIssue={handleSwitchIssue} />
+    {#each $allIssues.issues as issue}
+      <DrawerItem name={issue.name}, id={issue.id} on:switchIssue={handleSwitchIssue} />
     {/each}
   </Drawer>
   <div class="w-full h-full flex items-center justify-center pt-10">
 
-    {#if $frontendVariables.currentPage === 0}
+    {#if $currentPage === 0}
     <Start />
-    {:else if $frontendVariables.currentPage === 1}
-    <Main bind:loadNewIssue={loadNewIssue} />
+    {:else if $currentPage === 1}
+    <Main/>
     {/if}
 
   </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button, Input } from "flowbite-svelte";
-    import { frontendVariables } from "../store";
+    import { currentIssue } from "../store";
     import TodoItemComponent from "./TodoItemComponent.svelte";
     import { CheckOutline, PlusOutline } from "flowbite-svelte-icons";
     import { TodoItem } from "../../../data";
@@ -8,7 +8,6 @@
     // let todos: TodoItem[] = [];
     let newTodo: string = "";
     $: console.log(newTodo)
-    let dispatcher = createEventDispatcher();
 
     function keydownHandler(event: KeyboardEvent) {
         if (event.key === "Enter") {
@@ -19,25 +18,23 @@
     function addTodo() {
         if (newTodo !== "") {
             console.log("saving todo")
-            console.log($frontendVariables.currentIssue.todoItems)
-            let newId = $frontendVariables.currentIssue.todoItems.length + 1;
+            console.log($currentIssue.todoItems)
+            let newId = $currentIssue.todoItems.length + 1;
             let todo = new TodoItem(newId, newTodo);
-            $frontendVariables.currentIssue.todoItems.push(todo);
-            $frontendVariables.currentIssue.todoItems = $frontendVariables.currentIssue.todoItems;
+            $currentIssue.todoItems.push(todo);
+            $currentIssue.todoItems = $currentIssue.todoItems;
             newTodo = "";
-            dispatcher('saveCurrentIssue');
         }
     }
 
     async function handleDeleteTodo(event: CustomEvent<number>) {
-        $frontendVariables.currentIssue.todoItems = $frontendVariables.currentIssue.todoItems.filter(todo => todo.id !== event.detail);
-        dispatcher('saveCurrentIssue');
+        $currentIssue.todoItems = $currentIssue.todoItems.filter(todo => todo.id !== event.detail);
     }
 
 </script>
 
 <div class="w-full h-auto max-h-[50vh] min-h-30 rounded-2xl bg-background dark:bg-dark-background flex flex-col items-start justify-center overflow-y-scroll scrollbar-hide pt-4 pb-4 p-2">
-    {#each $frontendVariables.currentIssue.todoItems as todo}
+    {#each $currentIssue.todoItems as todo}
         <TodoItemComponent id={todo.id} on:deleteTodo={handleDeleteTodo}/>
     {/each}
     <div class="w-full h-7 flex flex-col items-start justify-start m-2 pr-4">

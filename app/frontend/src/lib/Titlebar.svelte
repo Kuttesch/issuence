@@ -2,7 +2,7 @@
     import { Button, DarkMode } from 'flowbite-svelte';
     import { CloseOutline, ExpandOutline, MinimizeOutline, DotsHorizontalOutline, BarsOutline } from 'flowbite-svelte-icons';
     import icon from '../assets/icon.png';
-    import { frontendVariables, theme } from './store';
+    import { currentPage } from './store';
     import ToggleTheme from './main/ToggleTheme.svelte';
 
     let maximized: boolean = false;
@@ -25,15 +25,6 @@
         window.electron.windowControls.minimizeWindow();
     }
 
-    // function updateThemeStore() {
-    //     console.log('Update Theme Store');
-    //     if (document.documentElement.classList.contains('dark')) {
-    //         $theme = 'light';
-    //     } else {
-    //         $theme = 'dark';
-    //     }
-    // }
-
 </script>
 
 <!-- OUTER DIV: Only this is draggable -->
@@ -44,7 +35,7 @@
                 <BarsOutline class="h-6 w-6 hover:scale-110" />
             </div> -->
             <div class="w-full h-10 flex items-center justify-start">
-                <img src={icon} alt="Icon" class="w-6 h-6 m-4 no-drag" on:click={() => {$frontendVariables.currentPage = 0}}/>
+                <img src={icon} alt="Icon" class="w-6 h-6 m-4 no-drag" on:click={() => {$currentPage = 0}}/>
                 <div class="text-lg text-text dark:text-dark-text font-bold">Issuence</div>
             </div>
         </div>

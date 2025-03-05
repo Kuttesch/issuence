@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button, Input, Hr } from "flowbite-svelte";
     import {Comment} from "../../../data";
-    import { frontendVariables } from "../store";
+    import { currentIssue } from "../store";
     import { createEventDispatcher } from "svelte";
 
     let newText: string = "";
@@ -11,9 +11,9 @@
         if (newText === "") {
             return;
         }
-        let newID = $frontendVariables.currentIssue.comments.length + 1;
+        let newID = $currentIssue.comments.length + 1;
         let comment = new Comment(newID, newText);
-        $frontendVariables.currentIssue.comments.push(comment);
+        $currentIssue.comments.push(comment);
         newText = "";
         dispatch("saveCurrentIssue");
         dispatch('scrollToBottom');
