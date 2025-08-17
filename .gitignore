@@ -31,3 +31,6 @@ app/frontend/.vscode
 app/backend/node_modules
 app/backend/dist
 app/backend/public
+
+#pnpm
+pnpm-lock.yaml
