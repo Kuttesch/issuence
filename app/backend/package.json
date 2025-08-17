@@ -29,7 +29,7 @@
     "build-electron": "npx electron-builder",
     "build": "pnpm run build-ts && pnpm run build-electron",
     "prettier": "prettier --write .",
-    "db:create": "tsx db/database.ts"
+    "db:create": "tsx db/database.ts --init"
   },
   "keywords": [],
   "author": "",
