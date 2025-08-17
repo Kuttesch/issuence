@@ -34,3 +34,6 @@ app/backend/public
 
 #pnpm
 pnpm-lock.yaml
+
+#database
+*.db*
