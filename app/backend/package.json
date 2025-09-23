@@ -29,7 +29,9 @@
     "build-electron": "npx electron-builder",
     "build": "pnpm run build-ts && pnpm run build-electron",
     "prettier": "prettier --write .",
-    "db:create": "tsx db/database.ts --init"
+    "db:create": "tsx db/database.ts --init",
+    "install:electron-sqlite": "node scripts/electron-install-better-sqlite3.js",
+    "install:node-sqlite": "node scripts/node-install-better-sqlite3.js"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +41,7 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.1",
     "electron": "^34.1.1",
+    "electron-rebuild": "^3.2.9",
     "pnpm-run": "0.0.1-security",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.4",
