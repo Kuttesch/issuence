@@ -1,9 +1,26 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import DB from "./database";
 import { format } from "url";
+import fs from "fs";
 
-let db: DB | null = null;
+// --- import our SQLite functions ---
+import {
+  get_all_issues,
+  get_issue,
+  save_issue,
+  delete_issue,
+  database_init,
+} from "./db/database";
+import type { Issue } from "./db/types";
+
+const dbFile = path.join(__dirname, "issues.db");
+
+function ensureDatabase() {
+  if (!fs.existsSync(dbFile)) {
+    console.log("Database not found, initializing...");
+    database_init();
+  }
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -12,9 +29,9 @@ function createWindow() {
     minWidth: 950,
     minHeight: 500,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"), // Set preload script path
-      nodeIntegration: false, // Disable nodeIntegration for security
-      contextIsolation: true, // Isolate renderer process from node.js
+      preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: false,
+      contextIsolation: true,
     },
     frame: false,
     icon: path.join(__dirname, "/src/icon.png"),
@@ -32,18 +49,12 @@ function createWindow() {
   win.loadURL(startURL);
 
   if (isDev) {
-    win.webContents.openDevTools({
-      mode: "detach",
-    });
+    win.webContents.openDevTools({ mode: "detach" });
   }
 }
-app.whenReady().then(async () => {
-  console.log("Initializing database");
-  db = new DB();
-  await db.initDB();
-  // await db.createExampleData();
-  console.log("Database initialized");
-  console.log(await db.getListOfAllIssueNames());
+
+app.whenReady().then(() => {
+  ensureDatabase();
   createWindow();
 });
 
@@ -53,17 +64,12 @@ app.on("window-all-closed", () => {
   }
 });
 
-// Example function to be called from the Svelte app
-function quitApp() {
-  if (db) {
-    db.saveDatabase();
-  } else {
-    console.error("Database not initialized");
-  }
+// --- window control IPC ---
+ipcMain.handle("quitApp", () => {
   app.quit();
-}
+});
 
-function maximizeWindow() {
+ipcMain.handle("maximizeWindow", () => {
   const win = BrowserWindow.getFocusedWindow();
   if (win) {
     if (win.isMaximized()) {
@@ -75,81 +81,28 @@ function maximizeWindow() {
     }
   }
   return false;
-}
+});
 
-function minimizeWindow() {
+ipcMain.handle("minimizeWindow", () => {
   const win = BrowserWindow.getFocusedWindow();
   if (win) {
     win.minimize();
   }
-}
-
-// Expose the function to the renderer process via IPC
-ipcMain.handle("quitApp", () => {
-  quitApp();
 });
 
-ipcMain.handle("maximizeWindow", () => {
-  return maximizeWindow();
+// --- database IPC ---
+ipcMain.handle("getIssues", () => {
+  return get_all_issues();
 });
 
-ipcMain.handle("minimizeWindow", () => {
-  minimizeWindow();
+ipcMain.handle("getIssue", (_event, id: number) => {
+  return get_issue(id);
 });
 
-// Database functions
-ipcMain.handle("getIssue", async (event, id) => {
-  if (db !== null) {
-    return await db.getIssue(id);
-  }
-  console.error("Database not initialized");
+ipcMain.handle("saveIssue", (_event, issue: Issue) => {
+  return save_issue(issue);
 });
 
-ipcMain.handle("getNumberOfIssues", async () => {
-  if (db !== null) {
-    return await db.getNumberOfIssues();
-  }
-  console.error("Database not initialized");
-});
-
-ipcMain.handle("getListOfAllIssueNames", async () => {
-  if (db !== null) {
-    return await db.getListOfAllIssueNames();
-  }
-  console.error("Database not initialized");
-});
-
-ipcMain.handle("getNameOfIssue", async (event, id) => {
-  if (db !== null) {
-    return await db.getNameOfIssue(id);
-  }
-  console.error("Database not initialized");
-});
-
-ipcMain.handle("getIdOfIssue", async (event, name) => {
-  if (db !== null) {
-    return await db.getIdOfIssue(name);
-  }
-  console.error("Database not initialized");
-});
-
-ipcMain.handle("addIssue", async (event, issue) => {
-  if (db !== null) {
-    return await db.addIssue(issue);
-  }
-  console.error("Database not initialized");
-});
-
-ipcMain.handle("removeIssue", async (event, id) => {
-  if (db !== null) {
-    db.removeIssue(id);
-  }
-  console.error("Database not initialized");
-});
-
-ipcMain.handle("saveIssue", async (event, issue) => {
-  if (db !== null) {
-    return await db.saveIssue(issue);
-  }
-  console.error("Database not initialized");
+ipcMain.handle("deleteIssue", (_event, id: number) => {
+  return delete_issue(id);
 });

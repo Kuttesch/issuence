@@ -1,105 +1,40 @@
 <script lang="ts">
-    import { Carta, MarkdownEditor } from 'carta-md';
+    import { Carta, MarkdownEditor, loadHighlighter } from 'carta-md';
+    import type { ThemeRegistration } from 'shiki';
     import { slash } from '@cartamd/plugin-slash';
     import { code } from '@cartamd/plugin-code';
-    import { frontendVariables, theme } from '../store';
-    // import '@cartamd/plugin-code/default.css';
+    import { currentIssue, theme, saveIssue, edit } from '../store';
     import '../styles/issuence.css';
-    import { loadHighlighter } from 'carta-md';
-    import { createEventDispatcher, onDestroy } from 'svelte';
-
-    export let edit: boolean = false;
-
-    let dispatcher = createEventDispatcher();
-
-    const customThemeSettings = [
-        {
-            scope: "markup.bold",
-            settings: { fontStyle: "bold", foreground: "#FACC15" }
-        },
-        {
-            scope: "markup.italic",
-            settings: { fontStyle: "italic", foreground: "#A78BFA" }
-        },
-        {
-            scope: "markup.inline",
-            settings: { foreground: "#F97316" }
-        },
-        {
-            scope: "markup.code",
-            settings: { background: "#FFFFFF", foreground: "#D1D5DB" }
-        },
-        {
-            scope: "markup.heading",
-            settings: { foreground: "#F59E0B" }
-        },
-        {
-            scope: "markup.list",
-            settings: { foreground: "#F59E0B" }
-        },
-        {
-            scope: "markup.quote",
-            settings: { foreground: "#F59E0B" }
-        }
-    ];
-
-    const carta = new Carta({
-        sanitizer(html) {
-            return html;
-        },
-        extensions: [
-            slash(),
-            code()
-        ]
-    });
-
-    async function updateHighlighter(theme: "light" | "dark" = "light") {
-        // Load the base theme using the loadHighlighter method
-        let highlighterTheme = 'material-theme-lighter';
-        if (theme === 'dark') {
-            highlighterTheme = 'material-theme-darker';
-        }
-        const highlighter = await loadHighlighter({
-            theme: highlighterTheme,
-            grammarRules: [],
-            highlightingRules: []
-        });
-
-        // Merge custom settings with the base theme
-        const baseTheme = highlighter.getTheme(highlighterTheme);
-        const mergedTheme = {
-            ...baseTheme,
-            settings: [
-                ...baseTheme.settings,
-                ...customThemeSettings
-            ]
-        };
-        highlighter.setTheme(mergedTheme);
-        console.log("Theme applied:", mergedTheme);
-        carta.highlighter = async () => highlighter;
-    }
+	// import './issuence.scss';
+    import { onDestroy } from 'svelte';
 
 
-    onDestroy(() => {
-        dispatcher('saveCurrentIssue');
-    });
-
-    $: {
-        theme.subscribe(value => {
-            updateHighlighter(value);
-        });
-    }
+	const carta = new Carta({
+		sanitizer: false,
+		extensions: [
+			// attachment({
+			// 	async upload() {
+			// 		return 'some-url-from-server.xyz';
+			// 	}
+			// }),
+			// emoji(),
+			// slash(),
+			code()
+		]
+	});
 
 </script>
 
 <div class="w-full min-h-[15vh] max-h-[40vh] h-auto text-lg text-text dark:text-dark-text flex flex-col items-start justify-start pt-4">
-    {#if edit}
-        {#if $theme === 'dark'}
-            <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence-dark" carta={carta} />
+    {#if $currentIssue}
+        {#if $edit}
+            {#if $theme === 'dark'}
+                <MarkdownEditor bind:value={$currentIssue.description} mode="tabs" theme="issuence_dark" carta={carta} />
+            {:else}
+                <MarkdownEditor bind:value={$currentIssue.description} mode="tabs" theme="issuence_light" carta={carta} />
+            {/if}
         {:else}
-            <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence-light" carta={carta} />
+            <MarkdownEditor bind:value={$currentIssue.description} mode="tabs" theme="issuence_{$theme}" selectedTab="preview" disableToolbar={true} carta={carta} />
         {/if}
-    {:else}
-        <MarkdownEditor bind:value={$frontendVariables.currentIssue.description} mode="tabs" theme="issuence-{$theme}" selectedTab="preview" disableToolbar={true} carta={carta} />
     {/if}
 </div>

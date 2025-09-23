@@ -1,6 +1,6 @@
 {
   "name": "issuence",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "",
   "scripts": {
@@ -11,6 +11,8 @@
   "license": "ISC",
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "better-sqlite3",
       "electron",
       "esbuild"
     ]

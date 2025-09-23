@@ -1,5 +1,6 @@
-// global.d.ts
 export {};
+
+import type { Issue } from "../lib/types";
 
 declare global {
   interface Window {
@@ -10,14 +11,10 @@ declare global {
         minimizeWindow: () => Promise<void>;
       };
       database: {
-        getIssue: (id: number) => Promise<Issue>;
-        getNumberOfIssues: () => Promise<number>;
-        getListOfAllIssueNames: () => Promise<string[]>;
-        getNameOfIssue: (id: number) => Promise<string>;
-        getIdOfIssue: (name: string) => Promise<number>;
-        addIssue: (issue: Issue) => Promise<void>;
-        saveIssue: (issue: Issue) => Promise<void>;
-        removeIssue: (id: number) => Promise<void>;
+        getIssues: () => Promise<Array<{ id: number; title: string }>>;
+        getIssue: (id: number) => Promise<Issue | null>;
+        saveIssue: (issue: Issue) => Promise<Issue>;
+        deleteIssue: (id: number) => Promise<void>;
       };
     };
   }
