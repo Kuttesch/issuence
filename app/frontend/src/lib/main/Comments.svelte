@@ -57,7 +57,7 @@
   >
     <Input
       type="text"
-      class="w-full min-h-20 rounded-2xl text-text dark:text-dark-text text-lg font-normal p-2 hover:outline-0"
+      class="w-full min-h-20 rounded-2xl text-text dark:text-dark-text text-lg font-normal p-2 outline-0"
       placeholder="Add a comment..."
       bind:value={newText}
       on:keydown={handleKeyPress}

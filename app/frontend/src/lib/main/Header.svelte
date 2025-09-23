@@ -39,7 +39,7 @@
       <!-- Title -->
       {#if $edit}
         <Input
-          class="w-5/5 h-1/2 text-text dark:text-dark-text text-3xl font-bold flex items-center justify-start p-0 hover:outline-0"
+          class="w-5/5 h-1/2 text-text dark:text-dark-text text-3xl font-bold flex items-center justify-start p-0 outline-0 dark:bg-dark-background bg-background rounded-2xl pl-4"
           placeholder="Title"
           bind:value={$currentIssue.title}
         />

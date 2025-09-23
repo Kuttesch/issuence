@@ -46,7 +46,7 @@
         </div>
       </Button>
       <Input
-        class="w-full h-25 rounded-2xl text-text dark:text-dark-text text-lg font-bold p-0 m-0 hover:outline-0"
+        class="w-full h-25 rounded-2xl text-text dark:text-dark-text text-lg font-bold p-0 m-0 outline-0"
         placeholder="Add a todo..."
         bind:value={newTodo}
         on:keydown={keydownHandler}
