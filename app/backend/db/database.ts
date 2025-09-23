@@ -7,7 +7,9 @@ db.pragma("foreign_keys = ON");
 // --- helper: ensure schema exists ---
 function assert_schema() {
   const hasIssues = db
-    .prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name='issues'`)
+    .prepare(
+      `SELECT name FROM sqlite_master WHERE type='table' AND name='issues'`,
+    )
     .get();
   if (!hasIssues) {
     throw new Error("Database not initialized. Run database_init() first.");
@@ -18,27 +20,32 @@ function assert_schema() {
 
 export function get_all_issues(): { id: number; title: string }[] {
   assert_schema();
-  return db
-    .prepare(`SELECT id, title FROM issues ORDER BY id`)
-    .all() as { id: number; title: string }[];
+  return db.prepare(`SELECT id, title FROM issues ORDER BY id`).all() as {
+    id: number;
+    title: string;
+  }[];
 }
 
 export function get_issue(id: number): Issue | null {
   assert_schema();
 
   const row = db.prepare(`SELECT * FROM issues WHERE id = ?`).get(id) as
-    | (Omit<Issue, "comments" | "todos"> & { })
+    | (Omit<Issue, "comments" | "todos"> & {})
     | undefined;
 
   if (!row) return null;
 
   const comments = db
-    .prepare(`SELECT text, created FROM comments WHERE issue_id = ? ORDER BY id`)
+    .prepare(
+      `SELECT text, created FROM comments WHERE issue_id = ? ORDER BY id`,
+    )
     .all(id) as Comment[];
 
-  const todos = (db
-    .prepare(`SELECT text, done FROM todos WHERE issue_id = ? ORDER BY id`)
-    .all(id) as { text: string; done: 0 | 1 }[]).map<Todo>((t) => ({
+  const todos = (
+    db
+      .prepare(`SELECT text, done FROM todos WHERE issue_id = ? ORDER BY id`)
+      .all(id) as { text: string; done: 0 | 1 }[]
+  ).map<Todo>((t) => ({
     text: t.text,
     done: !!t.done,
   }));
@@ -67,7 +74,7 @@ export function save_issue(issue: Issue): Issue {
       const info = db
         .prepare(
           `INSERT INTO issues (title, description, priority, status, created, updated)
-           VALUES (?, ?, ?, ?, ?, ?)`
+           VALUES (?, ?, ?, ?, ?, ?)`,
         )
         .run(
           issue.title,
@@ -75,7 +82,7 @@ export function save_issue(issue: Issue): Issue {
           issue.priority,
           issue.status,
           now,
-          null
+          null,
         );
       finalId = Number(info.lastInsertRowid);
       createdForReturn = now;
@@ -84,24 +91,26 @@ export function save_issue(issue: Issue): Issue {
       const existing = db
         .prepare(`SELECT * FROM issues WHERE id = ?`)
         .get(issue.id) as Issue | undefined;
-      if (!existing) throw new Error(`Issue with id=${issue.id} does not exist.`);
+      if (!existing)
+        throw new Error(`Issue with id=${issue.id} does not exist.`);
 
       const updated =
-        issue.title !== existing.title || issue.description !== existing.description
+        issue.title !== existing.title ||
+        issue.description !== existing.description
           ? now
           : existing.updated;
 
       db.prepare(
         `UPDATE issues
          SET title = ?, description = ?, priority = ?, status = ?, updated = ?
-         WHERE id = ?`
+         WHERE id = ?`,
       ).run(
         issue.title,
         issue.description,
         issue.priority,
         issue.status,
         updated,
-        issue.id
+        issue.id,
       );
 
       db.prepare(`DELETE FROM comments WHERE issue_id = ?`).run(issue.id);
@@ -112,7 +121,7 @@ export function save_issue(issue: Issue): Issue {
 
     // Insert comments
     const insertComment = db.prepare(
-      `INSERT INTO comments (issue_id, text, created) VALUES (?, ?, ?)`
+      `INSERT INTO comments (issue_id, text, created) VALUES (?, ?, ?)`,
     );
     for (const c of issue.comments) {
       insertComment.run(finalId, c.text, c.created);
@@ -120,7 +129,7 @@ export function save_issue(issue: Issue): Issue {
 
     // Insert todos
     const insertTodo = db.prepare(
-      `INSERT INTO todos (issue_id, text, done) VALUES (?, ?, ?)`
+      `INSERT INTO todos (issue_id, text, done) VALUES (?, ?, ?)`,
     );
     for (const t of issue.todos) {
       insertTodo.run(finalId, t.text, t.done ? 1 : 0);

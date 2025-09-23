@@ -4,7 +4,7 @@
   --color-primary: #4029ea;
   --color-secondary: #380fa5;
   --color-accent: #7b26c1;
-  --color-background: #FFFFFF;
+  --color-background: #ffffff;
   --color-background-secondary: #e8e8e8;
   --color-text: #000000;
   --drop-shadow-main: 0 0 100px #4029ea;
@@ -26,7 +26,6 @@
   --color-success: #0da325;
   --color-warning: #f8822b;
   --color-danger: #e02028;
-
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

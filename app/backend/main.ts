@@ -43,7 +43,9 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  console.log("App ready. Make sure to run `pnpm db:create` once to initialize DB.");
+  console.log(
+    "App ready. Make sure to run `pnpm db:create` once to initialize DB.",
+  );
   createWindow();
 });
 
