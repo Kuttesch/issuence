@@ -2,63 +2,68 @@
 
 /*#### Dark #####*/
 
-.carta-theme__issuence-dark {
+.carta-theme__issuence_dark {
   background-color: var(--color-dark-background);
-  color: var(--color-dark-text) !important;
-  caret-color: var(--color-dark-text) !important;
+  /* color: var(--color-dark-text) !important; */
+  /* caret-color: var(--color-dark-text) !important; */
 }
 
-.carta-theme__issuence-dark .shiki span{
+.carta-theme__issuence_dark .shiki span{
   color: var(--color-dark-text);
 }
 
-.carta-theme__issuence-dark,
-.carta-theme__issuence-dark .carta-toolbar-left .carta-active {
+.carta-theme__issuence_dark .carta-font-code {
+  caret-color: var(--color-dark-text);
+}
+
+.carta-theme__issuence_dark,
+.carta-theme__issuence_dark .carta-toolbar-left .carta-active {
   background-color: var(--color-dark-background);
 }
 
-.carta-theme__issuence-dark .carta-toolbar-left button,
-.carta-theme__issuence-dark .carta-toolbar-right,
-.carta-theme__issuence-dark .carta-filler,
-.carta-theme__issuence-dark .carta-icons-menu,
-.carta-theme__issuence-dark .carta-slash {
+.carta-theme__issuence_dark .carta-toolbar-left button,
+.carta-theme__issuence_dark .carta-toolbar-right,
+.carta-theme__issuence_dark .carta-filler,
+.carta-theme__issuence_dark .carta-icons-menu,
+.carta-theme__issuence_dark .carta-slash {
   background-color: var(--color-dark-background-secondary);
 }
 
-.carta-theme__issuence-dark .carta-toolbar .carta-icon:hover,
-.carta-theme__issuence-dark .carta-icons-menu .carta-icon-full:hover,
-.carta-theme__issuence-dark .carta-slash button.carta-active,
-.carta-theme__issuence-dark .carta-slash button:hover {
+.carta-theme__issuence_dark .carta-toolbar .carta-icon:hover,
+.carta-theme__issuence_dark .carta-icons-menu .carta-icon-full:hover,
+.carta-theme__issuence_dark .carta-slash button.carta-active,
+.carta-theme__issuence_dark .carta-slash button:hover {
   background-color: var(--color-dark-accent);
 }
 
-.carta-theme__issuence-dark .carta-toolbar-left .carta-active {
+.carta-theme__issuence_dark .carta-toolbar-left .carta-active {
   border-bottom: 1px solid var(--color-dark-background);
   border-right: 1px solid var(--color-dark-background-secondary);
 }
 
-.carta-theme__issuence-dark
+.carta-theme__issuence_dark
   .carta-toolbar-left
   .carta-active:not(:first-child) {
   border-left: 1px solid var(--color-dark-background-secondary);
 }
 
-.carta-theme__issuence-dark .carta-slash {
+.carta-theme__issuence_dark .carta-slash {
   border-color: var(--color-dark-accent);
 }
 
-.carta-theme__issuence-dark {
+.carta-theme__issuence_dark {
   width: 100%;
   height: auto;
   border-radius: 1rem;
+  border: 1px var(--color-dark-background);
 }
 
 /*##### Light #####*/
 
 .carta-theme__issuence-light {
   background-color: var(--color-background);
-  color: var(--color-text) !important;
-  caret-color: var(--color-text) !important;
+  /* color: var(--color-text) !important; */
+  /* caret-color: var(--color-text) !important; */
 }
 
 .carta-theme__issuence-light,
@@ -101,7 +106,6 @@
   height: auto;
   border-radius: 1rem;
 }
-
 /*##### General #####*/
 
 .carta-wrapper {
@@ -223,4 +227,9 @@
 .carta-slash .carta-snippet-description {
   font-size: 0.8rem;
   text-overflow: ellipsis;
+}
+
+html.dark .carta-theme__issuence_dark .shiki,
+html.dark .carta-theme__issuence_dark .shiki span {
+	color: var(--shiki-dark) !important;
 }
