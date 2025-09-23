@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button, Input, Hr } from "flowbite-svelte";
-    import {Comment} from "../../../data";
+    import {Comment} from "../../../../../release_notes/data";
     import { frontendVariables } from "../store";
     import { createEventDispatcher } from "svelte";
 
