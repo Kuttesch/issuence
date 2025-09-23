@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { format } from "url";
+import fs from "fs";
 
 // --- import our SQLite functions ---
 import {
@@ -8,8 +9,18 @@ import {
   get_issue,
   save_issue,
   delete_issue,
+  database_init,
 } from "./db/database";
 import type { Issue } from "./db/types";
+
+const dbFile = path.join(__dirname, "issues.db");
+
+function ensureDatabase() {
+  if (!fs.existsSync(dbFile)) {
+    console.log("Database not found, initializing...");
+    database_init();
+  }
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -43,9 +54,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  console.log(
-    "App ready. Make sure to run `pnpm db:create` once to initialize DB.",
-  );
+  ensureDatabase();
   createWindow();
 });
 
